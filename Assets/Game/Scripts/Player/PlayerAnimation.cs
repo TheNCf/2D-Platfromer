@@ -2,22 +2,49 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(Rigidbody2D))]
+[RequireComponent(typeof(PlayerMover))]
+
 public class PlayerAnimation : MonoBehaviour
 {
     [SerializeField] private InputRegisterer _inputRegisterer;
 
     private Animator _animator;
-    private Rigidbody2D _rigidbody;
+    private PlayerMover _playerMover;
 
     private void Awake()
     {
         _animator = GetComponent<Animator>();
-        _rigidbody = GetComponent<Rigidbody2D>();
+        _playerMover = GetComponent<PlayerMover>();
+    }
+
+    private void OnEnable()
+    {
+        _playerMover.Jumped += OnJumped;
+    }
+
+    private void OnDisable()
+    {
+        _playerMover.Jumped -= OnJumped;
     }
 
     private void Update()
     {
-        _animator.SetFloat("Speed", Mathf.Abs(_rigidbody.velocity.x));
+        _animator.SetFloat(PlayerAnimatorData.Params.Speed, Mathf.Abs(_playerMover.CurrentHorizontalVelocity));
+        _animator.SetBool(PlayerAnimatorData.Params.IsGrounded, _playerMover.IsGrounded);
+    }
+
+    private void OnJumped()
+    {
+        _animator.SetTrigger(PlayerAnimatorData.Params.Jump);
+    }
+}
+
+public static class PlayerAnimatorData
+{
+    public static class Params
+    {
+        public static readonly int Speed = Animator.StringToHash(nameof(Speed));
+        public static readonly int Jump = Animator.StringToHash(nameof(Jump));
+        public static readonly int IsGrounded = Animator.StringToHash(nameof(IsGrounded));
     }
 }

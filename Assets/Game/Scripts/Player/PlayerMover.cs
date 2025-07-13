@@ -1,3 +1,5 @@
+using System;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -11,14 +13,28 @@ public class PlayerMover : MonoBehaviour
 
     private Rigidbody2D _rigidbody;
 
-    private bool _isGrounded = true;
+    private bool _canMove = true;
     private float _groundBoxHeight = 0.05f;
+    private float _groundControlRecoverTime = 0.5f;
+
+    public bool IsGrounded { get; private set; } = true;
+    public float CurrentHorizontalVelocity { get; private set; }
+
+    public event Action Jumped;
 
     private void Awake()
     {
-        _inputRegisterer.JumpPerformed += Jump;
-
         _rigidbody = GetComponent<Rigidbody2D>();
+    }
+
+    private void OnEnable()
+    {
+        _inputRegisterer.JumpPerformed += Jump;
+    }
+
+    private void OnDisable()
+    {
+        _inputRegisterer.JumpPerformed -= Jump;
     }
 
     private void Update()
@@ -30,31 +46,31 @@ public class PlayerMover : MonoBehaviour
 
     private void Move()
     {
-        float currentHorizontalVelocity;
+        float acceleration = IsGrounded ? _movementValues.GroundedAcceleration : _movementValues.AirAcceleration;
+        float deceleration = IsGrounded ? _movementValues.GroundedDeceleration : _movementValues.AirDeceleration;
 
-        float acceleration = _isGrounded ? _movementValues.GroundedAcceleration : _movementValues.AirAcceleration;
-        float deceleration = _isGrounded ? _movementValues.GroundedDeceleration : _movementValues.AirDeceleration;
-
-        if (_inputRegisterer.Movement.x != 0)
+        if (_inputRegisterer.Movement.x != 0 && _canMove)
         {
             float currentSpeed = _inputRegisterer.IsWalking ? _movementValues.WalkSpeed : _movementValues.RunSpeed;
+
             float targetHorizontalVelocity = currentSpeed * _inputRegisterer.Movement.x;
 
-            currentHorizontalVelocity = Mathf.Lerp(_rigidbody.velocity.x, targetHorizontalVelocity, acceleration * Time.deltaTime);
+            CurrentHorizontalVelocity = Mathf.Lerp(_rigidbody.velocity.x, targetHorizontalVelocity, acceleration * Time.deltaTime);
         }
         else
         {
-            currentHorizontalVelocity = Mathf.Lerp(_rigidbody.velocity.x, 0, deceleration * Time.deltaTime);
+            CurrentHorizontalVelocity = Mathf.Lerp(_rigidbody.velocity.x, 0, deceleration * Time.deltaTime);
         }
 
-        _rigidbody.velocity = new Vector2(currentHorizontalVelocity, _rigidbody.velocity.y);
+        _rigidbody.velocity = new Vector2(CurrentHorizontalVelocity, _rigidbody.velocity.y);
     }
 
     private void Jump()
     {
-        if (_isGrounded)
+        if (IsGrounded && _canMove)
         {
             _rigidbody.velocity = new Vector2(_rigidbody.velocity.x, _movementValues.JumpHeight);
+            Jumped.Invoke();
         }
     }
 
@@ -64,6 +80,13 @@ public class PlayerMover : MonoBehaviour
             transform.localEulerAngles = new Vector3(0, 0, 0);
         else if (_rigidbody.velocity.x < 0)
             transform.localEulerAngles = new Vector3(0, 180, 0);
+    }
+
+    private IEnumerator DisableControls(float timeInSeconds)
+    {
+        _canMove = false;
+        yield return new WaitForSeconds(timeInSeconds);
+        _canMove = true;
     }
 
     private void GetGroundBox(out Vector2 center, out Vector2 size)
@@ -79,7 +102,11 @@ public class PlayerMover : MonoBehaviour
         GetGroundBox(out Vector2 center, out Vector2 size);
         float angle = 0.0f;
 
-        _isGrounded = Physics2D.OverlapBoxAll(center, size, angle).Length > 1;
+        bool previousValue = IsGrounded;
+        IsGrounded = Physics2D.OverlapBoxAll(center, size, angle).Length > 1;
+
+        if (IsGrounded == true && previousValue == false)
+            StartCoroutine(DisableControls(_groundControlRecoverTime));
     }
 
     private void OnDrawGizmos()
