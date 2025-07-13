@@ -20,11 +20,13 @@ public class PlayerAnimation : MonoBehaviour
     private void OnEnable()
     {
         _playerMover.Jumped += OnJumped;
+        _playerMover.Dashed += OnDashed;
     }
 
     private void OnDisable()
     {
         _playerMover.Jumped -= OnJumped;
+        _playerMover.Dashed -= OnDashed;
     }
 
     private void Update()
@@ -37,6 +39,11 @@ public class PlayerAnimation : MonoBehaviour
     {
         _animator.SetTrigger(PlayerAnimatorData.Params.Jump);
     }
+
+    private void OnDashed()
+    {
+        _animator.SetTrigger(PlayerAnimatorData.Params.Dash);
+    }
 }
 
 public static class PlayerAnimatorData
@@ -45,6 +52,7 @@ public static class PlayerAnimatorData
     {
         public static readonly int Speed = Animator.StringToHash(nameof(Speed));
         public static readonly int Jump = Animator.StringToHash(nameof(Jump));
+        public static readonly int Dash = Animator.StringToHash(nameof(Dash));
         public static readonly int IsGrounded = Animator.StringToHash(nameof(IsGrounded));
     }
 }

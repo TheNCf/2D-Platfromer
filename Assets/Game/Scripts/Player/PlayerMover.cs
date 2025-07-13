@@ -14,13 +14,15 @@ public class PlayerMover : MonoBehaviour
     private Rigidbody2D _rigidbody;
 
     private bool _canMove = true;
-    private float _groundBoxHeight = 0.05f;
-    private float _groundControlRecoverTime = 0.5f;
+    private bool _canDash = true;
+    private bool _isFacingRight = true;
+    private bool _isDashingDragApplied = false;
 
     public bool IsGrounded { get; private set; } = true;
     public float CurrentHorizontalVelocity { get; private set; }
 
     public event Action Jumped;
+    public event Action Dashed;
 
     private void Awake()
     {
@@ -30,11 +32,13 @@ public class PlayerMover : MonoBehaviour
     private void OnEnable()
     {
         _inputRegisterer.JumpPerformed += Jump;
+        _inputRegisterer.DashPerformed += Dash;
     }
 
     private void OnDisable()
     {
         _inputRegisterer.JumpPerformed -= Jump;
+        _inputRegisterer.DashPerformed -= Dash;
     }
 
     private void Update()
@@ -48,6 +52,8 @@ public class PlayerMover : MonoBehaviour
     {
         float acceleration = IsGrounded ? _movementValues.GroundedAcceleration : _movementValues.AirAcceleration;
         float deceleration = IsGrounded ? _movementValues.GroundedDeceleration : _movementValues.AirDeceleration;
+        acceleration = _isDashingDragApplied ? _movementValues.DashDrag : acceleration;
+        deceleration = _isDashingDragApplied ? _movementValues.DashDrag : deceleration;
 
         if (_inputRegisterer.Movement.x != 0 && _canMove)
         {
@@ -74,12 +80,38 @@ public class PlayerMover : MonoBehaviour
         }
     }
 
+    private void Dash()
+    {
+        if (_canDash)
+        {
+            StartCoroutine(DisableDash(_movementValues.DashCooldown));
+            StartCoroutine(SetDashingDrag(_movementValues.DashDragOverrideTime));
+            Dashed?.Invoke();
+
+            float dashDirection = _isFacingRight ? 1 : -1;
+            _rigidbody.velocity = new Vector2(dashDirection * _movementValues.DashForce, _rigidbody.velocity.y);
+        }
+    }
+
     private void Turn()
     {
         if (_rigidbody.velocity.x > 0)
+        {
             transform.localEulerAngles = new Vector3(0, 0, 0);
+            _isFacingRight = true;
+        }
         else if (_rigidbody.velocity.x < 0)
+        {
             transform.localEulerAngles = new Vector3(0, 180, 0);
+            _isFacingRight = false;
+        }
+    }
+
+    private IEnumerator SetDashingDrag(float timeInSeconds)
+    {
+        _isDashingDragApplied = true;
+        yield return new WaitForSeconds(timeInSeconds);
+        _isDashingDragApplied = false;
     }
 
     private IEnumerator DisableControls(float timeInSeconds)
@@ -89,12 +121,19 @@ public class PlayerMover : MonoBehaviour
         _canMove = true;
     }
 
+    private IEnumerator DisableDash(float timeInSeconds)
+    {
+        _canDash = false;
+        yield return new WaitForSeconds(timeInSeconds);
+        _canDash = true;
+    }
+
     private void GetGroundBox(out Vector2 center, out Vector2 size)
     {
         center = _footCollider.bounds.center;
         center.y = _footCollider.bounds.min.y;
         float width = _footCollider.bounds.size.x;
-        size = new Vector2(width, _groundBoxHeight);
+        size = new Vector2(width, _movementValues.GroundBoxHeight);
     }
 
     private void GroundCheck()
@@ -106,7 +145,7 @@ public class PlayerMover : MonoBehaviour
         IsGrounded = Physics2D.OverlapBoxAll(center, size, angle).Length > 1;
 
         if (IsGrounded == true && previousValue == false)
-            StartCoroutine(DisableControls(_groundControlRecoverTime));
+            StartCoroutine(DisableControls(_movementValues.GroundControlRecoverTime));
     }
 
     private void OnDrawGizmos()

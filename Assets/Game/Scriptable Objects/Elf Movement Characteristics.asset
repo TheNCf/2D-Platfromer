@@ -12,10 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bfc73b0d330c3114b9db96f6278ec4bf, type: 3}
   m_Name: Elf Movement Characteristics
   m_EditorClassIdentifier: 
-  RunSpeed: 5
-  WalkSpeed: 2
-  GroundedAcceleration: 5
-  GroundedDeceleration: 20
-  AirAcceleration: 2
-  AirDeceleration: 2
-  JumpHeight: 5
+  <RunSpeed>k__BackingField: 8
+  <WalkSpeed>k__BackingField: 3
+  <GroundedAcceleration>k__BackingField: 5
+  <GroundedDeceleration>k__BackingField: 20
+  <AirAcceleration>k__BackingField: 2
+  <AirDeceleration>k__BackingField: 2
+  <GroundBoxHeight>k__BackingField: 0.05
+  <JumpHeight>k__BackingField: 7
+  <GroundControlRecoverTime>k__BackingField: 0.5
+  <DashCooldown>k__BackingField: 3
+  <DashForce>k__BackingField: 10

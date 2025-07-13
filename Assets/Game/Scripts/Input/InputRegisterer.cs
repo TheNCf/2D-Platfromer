@@ -13,6 +13,7 @@ public class InputRegisterer : MonoBehaviour
     public bool IsWalking { get; private set; }
 
     public event Action JumpPerformed;
+    public event Action DashPerformed;
 
     private void Awake()
     {
@@ -28,6 +29,7 @@ public class InputRegisterer : MonoBehaviour
         _inputActions.Player.Walk.started += OnWalk;
         _inputActions.Player.Walk.canceled += OnWalk;
         _inputActions.Player.Jump.started += OnJump;
+        _inputActions.Player.Dash.started += OnDash;
     }
 
     private void OnDisable()
@@ -39,6 +41,7 @@ public class InputRegisterer : MonoBehaviour
         _inputActions.Player.Walk.started -= OnWalk;
         _inputActions.Player.Walk.canceled -= OnWalk;
         _inputActions.Player.Jump.started -= OnJump;
+        _inputActions.Player.Dash.started -= OnDash;
     }
 
     private void OnMove(InputAction.CallbackContext context)
@@ -54,5 +57,10 @@ public class InputRegisterer : MonoBehaviour
     private void OnJump(InputAction.CallbackContext context)
     {
         JumpPerformed?.Invoke();
+    }
+
+    private void OnDash(InputAction.CallbackContext context)
+    {
+        DashPerformed?.Invoke();
     }
 }
