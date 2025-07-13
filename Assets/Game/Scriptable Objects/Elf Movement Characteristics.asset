@@ -22,4 +22,6 @@ MonoBehaviour:
   <JumpHeight>k__BackingField: 7
   <GroundControlRecoverTime>k__BackingField: 0.5
   <DashCooldown>k__BackingField: 3
-  <DashForce>k__BackingField: 10
+  <DashForce>k__BackingField: 15
+  <DashDrag>k__BackingField: 1
+  <DashDragOverrideTime>k__BackingField: 1
