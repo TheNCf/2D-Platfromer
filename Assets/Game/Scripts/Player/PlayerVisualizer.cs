@@ -1,20 +1,15 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(PlayerMover))]
-
-public class PlayerAnimation : MonoBehaviour
+public class PlayerVisualizer : MonoBehaviour
 {
     [SerializeField] private InputRegisterer _inputRegisterer;
+    [SerializeField] private PlayerMover _playerMover;
 
     private Animator _animator;
-    private PlayerMover _playerMover;
 
     private void Awake()
     {
         _animator = GetComponent<Animator>();
-        _playerMover = GetComponent<PlayerMover>();
     }
 
     private void OnEnable()
@@ -31,8 +26,8 @@ public class PlayerAnimation : MonoBehaviour
 
     private void Update()
     {
-        _animator.SetFloat(PlayerAnimatorData.Params.Speed, Mathf.Abs(_playerMover.CurrentHorizontalVelocity));
-        _animator.SetBool(PlayerAnimatorData.Params.IsGrounded, _playerMover.IsGrounded);
+        UpdateAnimatorParams();
+        Turn();
     }
 
     private void OnJumped()
@@ -43,6 +38,20 @@ public class PlayerAnimation : MonoBehaviour
     private void OnDashed()
     {
         _animator.SetTrigger(PlayerAnimatorData.Params.Dash);
+    }
+
+    private void UpdateAnimatorParams()
+    {
+        _animator.SetFloat(PlayerAnimatorData.Params.Speed, Mathf.Abs(_playerMover.CurrentHorizontalVelocity));
+        _animator.SetBool(PlayerAnimatorData.Params.IsGrounded, _playerMover.IsGrounded);
+    }
+
+    private void Turn()
+    {
+        if (_playerMover.IsFacingRight)
+            transform.localEulerAngles = new Vector3(0, 0, 0);
+        else
+            transform.localEulerAngles = new Vector3(0, 180, 0);
     }
 }
 

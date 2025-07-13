@@ -1,11 +1,19 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class ItemInteractor : MonoBehaviour
+public class ItemInteractor : MonoBehaviour, IItem
 {
-    public void DestoyItem()
+    [field: SerializeField] public ItemType ItemType { get; private set; }
+    [SerializeField] private int _value = 1;
+
+    public int Take()
     {
         Destroy(gameObject);
+        return _value;
     }
+}
+
+public enum ItemType
+{
+    Coin,
+    Medicine
 }

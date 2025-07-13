@@ -1,7 +1,6 @@
 using System;
 using System.Collections;
 using UnityEngine;
-using UnityEngine.InputSystem;
 
 [RequireComponent(typeof(Rigidbody2D))]
 public class PlayerMover : MonoBehaviour
@@ -20,6 +19,7 @@ public class PlayerMover : MonoBehaviour
 
     public bool IsGrounded { get; private set; } = true;
     public float CurrentHorizontalVelocity { get; private set; }
+    public bool IsFacingRight => CheckFacingRight();
 
     public event Action Jumped;
     public event Action Dashed;
@@ -41,11 +41,10 @@ public class PlayerMover : MonoBehaviour
         _inputRegisterer.DashPerformed -= Dash;
     }
 
-    private void Update()
+    private void FixedUpdate()
     {
         GroundCheck();
         Move();
-        Turn();
     }
 
     private void Move()
@@ -93,18 +92,14 @@ public class PlayerMover : MonoBehaviour
         }
     }
 
-    private void Turn()
+    private bool CheckFacingRight()
     {
-        if (_rigidbody.velocity.x > 0)
-        {
-            transform.localEulerAngles = new Vector3(0, 0, 0);
+        if (_rigidbody.velocity.x > _movementValues.AmountOfMovementForTurn)
             _isFacingRight = true;
-        }
-        else if (_rigidbody.velocity.x < 0)
-        {
-            transform.localEulerAngles = new Vector3(0, 180, 0);
+        else if (_rigidbody.velocity.x < -_movementValues.AmountOfMovementForTurn)
             _isFacingRight = false;
-        }
+
+        return _isFacingRight;
     }
 
     private IEnumerator SetDashingDrag(float timeInSeconds)
@@ -148,7 +143,7 @@ public class PlayerMover : MonoBehaviour
             StartCoroutine(DisableControls(_movementValues.GroundControlRecoverTime));
     }
 
-    private void OnDrawGizmos()
+    private void OnDrawGizmosSelected()
     {
         if (_footCollider != null)
         {

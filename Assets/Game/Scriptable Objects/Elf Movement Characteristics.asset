@@ -19,7 +19,7 @@ MonoBehaviour:
   <AirAcceleration>k__BackingField: 2
   <AirDeceleration>k__BackingField: 2
   <GroundBoxHeight>k__BackingField: 0.05
-  <JumpHeight>k__BackingField: 7
+  <JumpHeight>k__BackingField: 10
   <GroundControlRecoverTime>k__BackingField: 0.5
   <DashCooldown>k__BackingField: 3
   <DashForce>k__BackingField: 15

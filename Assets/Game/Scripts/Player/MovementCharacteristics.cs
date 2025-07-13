@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "Movement Characteristics", menuName = "Character Values/Movement")]
@@ -12,6 +10,7 @@ public class MovementCharacteristics : ScriptableObject
     [field: SerializeField] public float GroundedDeceleration { get; private set; } = 20.0f;
     [field: SerializeField] public float AirAcceleration { get; private set; } = 2.0f;
     [field: SerializeField] public float AirDeceleration { get; private set; } = 2.0f;
+    [field: SerializeField] public float AmountOfMovementForTurn { get; private set; } = 0.01f;
 
     [field: Header("Ground Check")]
     [field: SerializeField] public float GroundBoxHeight { get; private set; } = 0.05f;

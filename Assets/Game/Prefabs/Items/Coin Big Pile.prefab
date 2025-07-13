@@ -24,6 +24,10 @@ PrefabInstance:
       propertyPath: m_Offset.y
       value: 0.011536121
       objectReference: {fileID: 0}
+    - target: {fileID: 515868697988810567, guid: 89fd3c512d7d08c44966ed9765c4ff97, type: 3}
+      propertyPath: m_SpriteTilingProperty.pivot.y
+      value: 0.44
+      objectReference: {fileID: 0}
     - target: {fileID: 546305220915862280, guid: 89fd3c512d7d08c44966ed9765c4ff97, type: 3}
       propertyPath: m_Name
       value: Coin Big Pile
@@ -32,6 +36,10 @@ PrefabInstance:
       propertyPath: m_Sprite
       value: 
       objectReference: {fileID: -547047621, guid: 940c2a7ba9856b34eb20efa8cbc04ec1, type: 3}
+    - target: {fileID: 7353029631093175389, guid: 89fd3c512d7d08c44966ed9765c4ff97, type: 3}
+      propertyPath: _value
+      value: 25
+      objectReference: {fileID: 0}
     - target: {fileID: 7353029631093175389, guid: 89fd3c512d7d08c44966ed9765c4ff97, type: 3}
       propertyPath: <Value>k__BackingField
       value: 25
