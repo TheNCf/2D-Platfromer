@@ -15,7 +15,7 @@ public class PlayerMover : MonoBehaviour
     private bool _canMove = true;
     private bool _canDash = true;
     private bool _isFacingRight = true;
-    private bool _isDashingDragApplied = false;
+    private bool _isDashing = false;
 
     public bool IsGrounded { get; private set; } = true;
     public float CurrentHorizontalVelocity { get; private set; }
@@ -51,8 +51,8 @@ public class PlayerMover : MonoBehaviour
     {
         float acceleration = IsGrounded ? _movementValues.GroundedAcceleration : _movementValues.AirAcceleration;
         float deceleration = IsGrounded ? _movementValues.GroundedDeceleration : _movementValues.AirDeceleration;
-        acceleration = _isDashingDragApplied ? _movementValues.DashDrag : acceleration;
-        deceleration = _isDashingDragApplied ? _movementValues.DashDrag : deceleration;
+        acceleration = _isDashing ? _movementValues.DashDrag : acceleration;
+        deceleration = _isDashing ? _movementValues.DashDrag : deceleration;
 
         if (_inputRegisterer.Movement.x != 0 && _canMove)
         {
@@ -84,7 +84,8 @@ public class PlayerMover : MonoBehaviour
         if (_canDash)
         {
             StartCoroutine(DisableDash(_movementValues.DashCooldown));
-            StartCoroutine(SetDashingDrag(_movementValues.DashDragOverrideTime));
+            StartCoroutine(SetDashing(_movementValues.DashDragOverrideTime));
+
             Dashed?.Invoke();
 
             float dashDirection = _isFacingRight ? 1 : -1;
@@ -102,11 +103,11 @@ public class PlayerMover : MonoBehaviour
         return _isFacingRight;
     }
 
-    private IEnumerator SetDashingDrag(float timeInSeconds)
+    private IEnumerator SetDashing(float timeInSeconds)
     {
-        _isDashingDragApplied = true;
+        _isDashing = true;
         yield return new WaitForSeconds(timeInSeconds);
-        _isDashingDragApplied = false;
+        _isDashing = false;
     }
 
     private IEnumerator DisableControls(float timeInSeconds)

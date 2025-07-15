@@ -18,6 +18,6 @@ public class CameraScroll : MonoBehaviour
     private void MoveToTarget()
     {
         Vector3 targetPosition = _target.position + _offset;
-        transform.position = Vector3.SmoothDamp(transform.position, targetPosition, ref _velocity, _speed * Time.deltaTime);
+        transform.position = Vector3.Lerp(transform.position, targetPosition, _speed * Time.deltaTime);
     }
 }

@@ -37,7 +37,10 @@ public class PlayerVisualizer : MonoBehaviour
 
     private void OnDashed()
     {
-        _animator.SetTrigger(PlayerAnimatorData.Params.Dash);
+        if (_playerMover.IsGrounded)
+            _animator.SetTrigger(PlayerAnimatorData.Params.Slide);
+        else
+            _animator.SetTrigger(PlayerAnimatorData.Params.Dash);
     }
 
     private void UpdateAnimatorParams()
@@ -62,6 +65,7 @@ public static class PlayerAnimatorData
         public static readonly int Speed = Animator.StringToHash(nameof(Speed));
         public static readonly int Jump = Animator.StringToHash(nameof(Jump));
         public static readonly int Dash = Animator.StringToHash(nameof(Dash));
+        public static readonly int Slide = Animator.StringToHash(nameof(Slide));
         public static readonly int IsGrounded = Animator.StringToHash(nameof(IsGrounded));
     }
 }

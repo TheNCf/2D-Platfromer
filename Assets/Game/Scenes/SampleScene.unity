@@ -262,7 +262,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _target: {fileID: 1755263020}
-  _speed: 200
+  _speed: 1
   _offset: {x: 0, y: 3, z: -10}
 --- !u!1 &538670797
 GameObject:
