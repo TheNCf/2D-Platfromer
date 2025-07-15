@@ -1155,7 +1155,7 @@ GameObject:
   - component: {fileID: 1243377319}
   - component: {fileID: 1243377318}
   - component: {fileID: 1243377317}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Solid Blocks
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3003,6 +3003,9 @@ MonoBehaviour:
   _inputRegisterer: {fileID: 746022485}
   _movementValues: {fileID: 11400000, guid: 2737ba961ab1fc24381b8d30fcfb4389, type: 2}
   _footCollider: {fileID: 1115107452}
+  _groundLayerMask:
+    serializedVersion: 2
+    m_Bits: 64
 --- !u!50 &1755263022
 Rigidbody2D:
   serializedVersion: 4

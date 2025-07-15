@@ -9,6 +9,7 @@ public class PlayerMover : MonoBehaviour
     [SerializeField] private MovementCharacteristics _movementValues;
     [Space(10)]
     [SerializeField] private Collider2D _footCollider;
+    [SerializeField] private LayerMask _groundLayerMask;
 
     private Rigidbody2D _rigidbody;
 
@@ -138,7 +139,7 @@ public class PlayerMover : MonoBehaviour
         float angle = 0.0f;
 
         bool previousValue = IsGrounded;
-        IsGrounded = Physics2D.OverlapBoxAll(center, size, angle).Length > 1;
+        IsGrounded = Physics2D.OverlapBox(center, size, angle, _groundLayerMask);
 
         if (IsGrounded == true && previousValue == false)
             StartCoroutine(DisableControls(_movementValues.GroundControlRecoverTime));
