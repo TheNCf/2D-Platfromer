@@ -32,7 +32,6 @@ public class EnemyAI : MonoBehaviour
         _enemyState?.Exit();
         _enemyState = newEnemyState;
         _enemyState.Enter();
-        StartCoroutine(Wait(_enemyState.SecondsToChange));
     }
 
     public void Move()
@@ -94,11 +93,5 @@ public class EnemyAI : MonoBehaviour
     private bool IsFacingRight()
     {
         return _targetPosition.x > transform.position.x;
-    }
-
-    private IEnumerator Wait(float timeInSeconds)
-    {
-        yield return new WaitForSeconds(timeInSeconds);
-        Waited?.Invoke();
     }
 }

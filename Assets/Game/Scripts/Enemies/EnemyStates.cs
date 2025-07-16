@@ -11,7 +11,8 @@ public abstract class EnemyState
         _enemyAI = enemyAI;
     }
 
-    public float SecondsToChange { get; protected set; } = 0.0f;
+    protected float _secondsToChange = 0.0f;
+    protected float _elapsedTime = 0.0f;
 
     public abstract void Enter();
 
@@ -27,17 +28,17 @@ public class EnemyStatePatrol : EnemyState
 
     public EnemyStatePatrol(EnemyAI enemyAI) : base(enemyAI)
     {
-        SecondsToChange = Random.Range(_minPatrolTime, _maxPatrolTime);
+
     }
 
     public override void Enter()
     {
-        _enemyAI.Waited += ChangeToWait;
+        _secondsToChange = Random.Range(_minPatrolTime, _maxPatrolTime);
     }
 
     public override void Exit()
     {
-        _enemyAI.Waited -= ChangeToWait;
+        
     }
 
     public override void Update()
@@ -46,11 +47,11 @@ public class EnemyStatePatrol : EnemyState
 
         if (_enemyAI.IsChasing)
             _enemyAI.SetState(new EnemyStateChase(_enemyAI));
-    }
 
-    private void ChangeToWait()
-    {
-        _enemyAI.SetState(new EnemyStateWait(_enemyAI));
+        _elapsedTime += Time.deltaTime;
+
+        if (_elapsedTime > _maxPatrolTime)
+            _enemyAI.SetState(new EnemyStateWait(_enemyAI));
     }
 }
 
@@ -61,28 +62,28 @@ public class EnemyStateWait : EnemyState
 
     public EnemyStateWait(EnemyAI enemyAI) : base(enemyAI)
     {
-        SecondsToChange = Random.Range(_minWaitTime, _maxWaitTime);
+
     }
 
     public override void Enter()
     {
-        _enemyAI.Waited += ChangeToPatrol;
+        _secondsToChange = Random.Range(_minWaitTime, _maxWaitTime);
     }
 
     public override void Exit()
     {
-        _enemyAI.Waited -= ChangeToPatrol;
+        
     }
 
     public override void Update()
     {
         if (_enemyAI.IsChasing)
             _enemyAI.SetState(new EnemyStateChase(_enemyAI));
-    }
 
-    private void ChangeToPatrol()
-    {
-        _enemyAI.SetState(new EnemyStatePatrol(_enemyAI));
+        _elapsedTime += Time.deltaTime;
+
+        if (_elapsedTime > _secondsToChange)
+            _enemyAI.SetState(new EnemyStatePatrol(_enemyAI));
     }
 }
 
@@ -90,6 +91,7 @@ public class EnemyStateChase : EnemyState
 {
     public EnemyStateChase(EnemyAI enemyAI) : base(enemyAI)
     {
+
     }
 
     public override void Enter()
@@ -108,5 +110,33 @@ public class EnemyStateChase : EnemyState
 
         if (_enemyAI.IsChasing == false)
             _enemyAI.SetState(new EnemyStateWait(_enemyAI));
+    }
+}
+
+public class EnemyStateAttack : EnemyState
+{
+    float _attackTime = 0.75f;
+
+    public EnemyStateAttack(EnemyAI enemyAI) : base(enemyAI)
+    {
+
+    }
+
+    public override void Enter()
+    {
+        _secondsToChange = _attackTime;
+    }
+
+    public override void Exit()
+    {
+
+    }
+
+    public override void Update()
+    {
+        _elapsedTime += Time.deltaTime;
+
+        if ( _elapsedTime > _secondsToChange)
+            _enemyAI.SetState(new EnemyStatePatrol(_enemyAI));
     }
 }
