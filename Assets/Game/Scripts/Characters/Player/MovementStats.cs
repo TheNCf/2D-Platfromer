@@ -1,7 +1,7 @@
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "Movement Characteristics", menuName = "Character Values/Movement")]
-public class MovementCharacteristics : ScriptableObject
+public class MovementStats : ScriptableObject
 {
     [field: Header("Walking")]
     [field: SerializeField] public float RunSpeed { get; private set; } = 5.0f;
