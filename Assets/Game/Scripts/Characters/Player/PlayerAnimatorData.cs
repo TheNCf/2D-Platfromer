@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerAnimatorData : MonoBehaviour
+public static class PlayerAnimatorData
 {
     public static class Params
     {

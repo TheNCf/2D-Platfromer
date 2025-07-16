@@ -589,6 +589,7 @@ GameObject:
   - component: {fileID: 799038520}
   - component: {fileID: 799038519}
   - component: {fileID: 799038518}
+  - component: {fileID: 799038521}
   m_Layer: 3
   m_Name: Visuals
   m_TagString: Untagged
@@ -624,8 +625,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 73d268798d83e5347afd8490d78a4767, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _inputRegisterer: {fileID: 746022485}
-  _playerMover: {fileID: 1755263021}
 --- !u!95 &799038519
 Animator:
   serializedVersion: 5
@@ -699,6 +698,18 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &799038521
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 799038516}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e8845595bd8830048b4430dd479b4f82, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &829232213
 GameObject:
   m_ObjectHideFlags: 0
@@ -740,6 +751,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1115107451}
   - component: {fileID: 1115107452}
+  - component: {fileID: 1115107453}
   m_Layer: 3
   m_Name: Feet
   m_TagString: Untagged
@@ -797,6 +809,23 @@ CapsuleCollider2D:
   m_Offset: {x: -0.18016192, y: 0.1347255}
   m_Size: {x: 0.6378249, y: 0.26946118}
   m_Direction: 1
+--- !u!114 &1115107453
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1115107450}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e016441c99f06c04fb5c0b86f47fc01e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _movementStats: {fileID: 11400000, guid: 2737ba961ab1fc24381b8d30fcfb4389, type: 2}
+  _footCollider: {fileID: 1115107452}
+  _groundLayerMask:
+    serializedVersion: 2
+    m_Bits: 64
 --- !u!1 &1214868951
 GameObject:
   m_ObjectHideFlags: 0
@@ -2962,6 +2991,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1755263020}
   - component: {fileID: 1755263022}
+  - component: {fileID: 1755263025}
   - component: {fileID: 1755263021}
   - component: {fileID: 1755263024}
   m_Layer: 3
@@ -3000,12 +3030,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 95225c5e8d1bdbd4b88c9543590d5dc1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _inputRegisterer: {fileID: 746022485}
-  _movementValues: {fileID: 11400000, guid: 2737ba961ab1fc24381b8d30fcfb4389, type: 2}
-  _footCollider: {fileID: 1115107452}
-  _groundLayerMask:
-    serializedVersion: 2
-    m_Bits: 64
+  _movementStats: {fileID: 11400000, guid: 2737ba961ab1fc24381b8d30fcfb4389, type: 2}
 --- !u!50 &1755263022
 Rigidbody2D:
   serializedVersion: 4
@@ -3046,6 +3071,23 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _playerCoins: {fileID: 2013365870}
+--- !u!114 &1755263025
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1755263017}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d642152eee972774ba8701ef35a81142, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _inputReader: {fileID: 746022485}
+  _mover: {fileID: 1755263021}
+  _groundDetector: {fileID: 1115107453}
+  _visualizer: {fileID: 799038518}
+  _turner: {fileID: 799038521}
 --- !u!1 &1831737217
 GameObject:
   m_ObjectHideFlags: 0
@@ -3357,6 +3399,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1983332400}
   - component: {fileID: 1983332399}
+  - component: {fileID: 1983332401}
   m_Layer: 0
   m_Name: Chase Trigger
   m_TagString: Untagged
@@ -3424,6 +3467,28 @@ Transform:
   m_Children: []
   m_Father: {fileID: 2092750207}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1983332401
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1983332398}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3e0399d5ca9658e46ab679c90d86d42c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _targetLayerMask:
+    serializedVersion: 2
+    m_Bits: 8
+  _chaseTrigger: {fileID: 1983332399}
+  _patrolPoints:
+  - {fileID: 2123730574}
+  - {fileID: 1328594308}
+  - {fileID: 829232214}
+  - {fileID: 494058267}
+  _closeSqrDistance: 0.1
 --- !u!1 &2013365869
 GameObject:
   m_ObjectHideFlags: 0
@@ -3480,6 +3545,7 @@ GameObject:
   - component: {fileID: 2065027384}
   - component: {fileID: 2065027383}
   - component: {fileID: 2065027385}
+  - component: {fileID: 2065027386}
   m_Layer: 0
   m_Name: Visuals
   m_TagString: Untagged
@@ -3589,6 +3655,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _rigidbody: {fileID: 2092750206}
+--- !u!114 &2065027386
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2065027381}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e8845595bd8830048b4430dd479b4f82, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2092750205
 GameObject:
   m_ObjectHideFlags: 0
@@ -3600,6 +3678,7 @@ GameObject:
   - component: {fileID: 2092750207}
   - component: {fileID: 2092750206}
   - component: {fileID: 2092750208}
+  - component: {fileID: 2092750209}
   m_Layer: 0
   m_Name: Golem Blue
   m_TagString: Untagged
@@ -3661,21 +3740,25 @@ MonoBehaviour:
   m_GameObject: {fileID: 2092750205}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 117b206dc0e06b7418c8c0dd5f17afa3, type: 3}
+  m_Script: {fileID: 11500000, guid: 6230a450db58a0741ab0cb5cf296e4c2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _target: {fileID: 1755263020}
-  _targetLayerMask:
-    serializedVersion: 2
-    m_Bits: 8
-  _chaseTrigger: {fileID: 1983332399}
-  _patrolPoints:
-  - {fileID: 2123730574}
-  - {fileID: 1328594308}
-  - {fileID: 829232214}
-  - {fileID: 494058267}
+  _mover: {fileID: 2092750209}
+  _targetChecker: {fileID: 1983332401}
+  _turner: {fileID: 2065027386}
+--- !u!114 &2092750209
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2092750205}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 38c2f92a1f17d6442a1ad84f6f2637c8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
   _movementSpeed: 1.5
-  _closeSqrDistance: 0.1
 --- !u!1 &2095150995
 GameObject:
   m_ObjectHideFlags: 0

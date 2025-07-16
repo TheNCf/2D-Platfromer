@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class PlayerItemCollector : MonoBehaviour
 {
-    [SerializeField] private PlayerCoins _playerCoins;
+    [SerializeField] private PlayerWallet _playerCoins;
 
     private void OnTriggerEnter2D(Collider2D collision)
     {

@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-public class PlayerCoins : MonoBehaviour
+public class PlayerWallet : MonoBehaviour
 {
     private int _coins = 0;
 
