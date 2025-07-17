@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CameraScroll : MonoBehaviour
+public class CameraScroller : MonoBehaviour
 {
     [SerializeField] private Transform _target;
     [SerializeField] private float _speed;

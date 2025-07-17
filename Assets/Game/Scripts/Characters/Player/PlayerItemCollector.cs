@@ -6,18 +6,18 @@ public class PlayerItemCollector : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.TryGetComponent(out ItemInteractor item))
+        if (collision.TryGetComponent(out Item item))
         {
             switch (item.ItemType)
             {
                 case ItemType.Coin:
-                    AddCoins(item as CoinInteractor);
+                    AddCoins(item as Coin);
                     break;
             }
         }
     }
 
-    private void AddCoins(CoinInteractor coinInteractor)
+    private void AddCoins(Coin coinInteractor)
     {
         _playerCoins.Add(coinInteractor.Take());
     }
