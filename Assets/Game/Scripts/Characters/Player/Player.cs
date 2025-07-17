@@ -10,6 +10,13 @@ public class Player : MonoBehaviour
     [SerializeField] private PlayerVisualizer _visualizer;
     [SerializeField] private CharacterTurner _turner;
 
+    private Rigidbody2D _rigidbody;
+
+    private void Awake()
+    {
+        _rigidbody = GetComponent<Rigidbody2D>();
+    }
+
     private void OnEnable()
     {
         _inputReader.JumpPerformed += OnJumpPerformed;
@@ -32,7 +39,7 @@ public class Player : MonoBehaviour
     private void Update()
     {
         _visualizer.UpdateAnimatorParams(_groundDetector.IsGrounded, _mover.CurrentHorizontalVelocity);
-        _turner.Turn(_mover.IsFacingRight);
+        _turner.Turn(_rigidbody);
     }
 
     private void OnJumpPerformed()
@@ -48,7 +55,7 @@ public class Player : MonoBehaviour
     {
         if (_mover.CanDash)
         {
-            _mover.Dash();
+            _mover.Dash(_turner.IsFacingRight);
             _visualizer.OnDashed(_groundDetector.IsGrounded);
         }
     }

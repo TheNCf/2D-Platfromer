@@ -9,12 +9,10 @@ public class PlayerMover : MonoBehaviour
     private Rigidbody2D _rigidbody;
 
     private bool _isDashing = false;
-    private bool _isFacingRight = true;
 
     public bool CanMove { get; private set; } = true;
     public bool CanDash { get; private set; } = true;
     public float CurrentHorizontalVelocity { get; private set; }
-    public bool IsFacingRight => CheckFacingRight();
 
     private void Awake()
     {
@@ -49,28 +47,18 @@ public class PlayerMover : MonoBehaviour
         _rigidbody.velocity = new Vector2(_rigidbody.velocity.x, _movementStats.JumpHeight);
     }
 
-    public void Dash()
+    public void Dash(bool isFacingRight)
     {
         StartCoroutine(DisableDash(_movementStats.DashCooldown));
         StartCoroutine(SetDashing(_movementStats.DashDragOverrideTime));
 
-        float dashDirection = IsFacingRight ? 1 : -1;
+        float dashDirection = isFacingRight ? 1 : -1;
         _rigidbody.velocity = new Vector2(dashDirection * _movementStats.DashForce, _rigidbody.velocity.y);
     }
 
     public void DisableControlsOnGrounded()
     {
         StartCoroutine(DisableControlsCoroutine(_movementStats.GroundControlRecoverTime));
-    }
-
-    private bool CheckFacingRight()
-    {
-        if (_rigidbody.velocity.x > _movementStats.AmountOfMovementForTurn)
-            _isFacingRight = true;
-        else if (_rigidbody.velocity.x < -_movementStats.AmountOfMovementForTurn)
-            _isFacingRight = false;
-
-        return _isFacingRight;
     }
 
     private IEnumerator DisableControlsCoroutine(float timeInSeconds)
