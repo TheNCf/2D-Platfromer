@@ -1,9 +1,7 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
 public class EnemyStateMachine
 {
+    private EnemyBaseState _state;
+
     public EnemyPatrolState PatrolState { get; private set; }
     public EnemyWaitState WaitState { get; private set; }
     public EnemyChaseState ChaseState { get; private set; }
@@ -11,9 +9,23 @@ public class EnemyStateMachine
 
     public EnemyStateMachine(EnemyMover enemyMover)
     {
-        PatrolState = new EnemyPatrolState(enemyMover);
-        WaitState = new EnemyWaitState(enemyMover);
-        ChaseState = new EnemyChaseState(enemyMover);
-        AttackState = new EnemyAttackState(enemyMover);
+        PatrolState = new EnemyPatrolState(this, enemyMover);
+        WaitState = new EnemyWaitState(this, enemyMover);
+        ChaseState = new EnemyChaseState(this, enemyMover);
+        AttackState = new EnemyAttackState(this, enemyMover);
+
+        SetState(WaitState);
+    }
+
+    public void SetState(EnemyBaseState newEnemyState)
+    {
+        _state?.Exit();
+        _state = newEnemyState;
+        _state.Enter();
+    }
+
+    public void RunState()
+    {
+        _state.Update();
     }
 }

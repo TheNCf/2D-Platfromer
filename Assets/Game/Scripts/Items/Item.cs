@@ -5,9 +5,9 @@ public class Item : MonoBehaviour, IItem
 {
     [SerializeField] private int _value = 1;
 
-    [field: SerializeField] public ItemType ItemType { get; private set; }
+    public event Action Taken;
 
-    public Action Taken;
+    [field: SerializeField] public ItemType Type { get; private set; }
 
     public int Take()
     {

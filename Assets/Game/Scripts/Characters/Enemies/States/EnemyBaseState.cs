@@ -1,10 +1,12 @@
 public abstract class EnemyBaseState
 {
-    protected EnemyMover _EnemyMover;
+    protected EnemyMover EnemyMover;
+    protected EnemyStateMachine StateMachine;
 
-    public EnemyBaseState(EnemyMover enemyMover)
+    public EnemyBaseState(EnemyStateMachine stateMachine, EnemyMover enemyMover)
     {
-        _EnemyMover = enemyMover;
+        StateMachine = stateMachine;
+        EnemyMover = enemyMover;
     }
 
     public abstract void Enter();

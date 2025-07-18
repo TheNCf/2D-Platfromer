@@ -40,7 +40,7 @@ public class Player : MonoBehaviour
 
     private void Update()
     {
-        bool isGrabbingWall = _wallGrabDetector.CheckIsGrabbing(_groundDetector.IsGrounded, _turner.IsFacingRight);
+        bool isGrabbingWall = _wallGrabDetector.CheckIsGrabbing(_groundDetector.IsGrounded, _turner.FacingRight);
         _visualizer.UpdateAnimatorParams(_groundDetector.IsGrounded, _mover.CurrentHorizontalVelocity, isGrabbingWall);
         _turner.Turn(_rigidbody);
 
@@ -63,7 +63,7 @@ public class Player : MonoBehaviour
     {
         if (_mover.CanDash)
         {
-            _mover.Dash(_turner.IsFacingRight);
+            _mover.Dash(_turner.FacingRight);
             _visualizer.OnDashed(_groundDetector.IsGrounded);
         }
     }

@@ -8,25 +8,25 @@ public class CharacterTurner : MonoBehaviour
 
     private readonly Vector3 _angleRight = new Vector3(0, 0, 0);
     private readonly Vector3 _angleLeft = new Vector3(0, 180, 0);
-    private bool _isFacingRight = true;
+    private bool _facingRight = true;
 
-    public bool IsFacingRight => _isFacingRight;
+    public bool FacingRight => _facingRight;
 
     public void Turn(Rigidbody2D rigidbody)
     {
-        if (CheckFacingRight(rigidbody))
+        if (IsFacingRight(rigidbody))
             transform.localEulerAngles = _angleRight;
         else
             transform.localEulerAngles = _angleLeft;
     }
 
-    private bool CheckFacingRight(Rigidbody2D rigidbody)
+    private bool IsFacingRight(Rigidbody2D rigidbody)
     {
         if (rigidbody.velocity.x > _amountOfMovementForTurn)
-            _isFacingRight = true;
+            _facingRight = true;
         else if (rigidbody.velocity.x < -_amountOfMovementForTurn)
-            _isFacingRight = false;
+            _facingRight = false;
 
-        return _isFacingRight;
+        return _facingRight;
     }
 }

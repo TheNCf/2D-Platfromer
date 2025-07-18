@@ -8,7 +8,7 @@ public class PlayerItemCollector : MonoBehaviour
     {
         if (collision.TryGetComponent(out Item item))
         {
-            switch (item.ItemType)
+            switch (item.Type)
             {
                 case ItemType.Coin:
                     AddCoins(item as Coin);

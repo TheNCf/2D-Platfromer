@@ -9,7 +9,7 @@ public class EnemyAttackState : EnemyBaseState
 
     float _attackTime = 0.75f;
 
-    public EnemyAttackState(EnemyMover enemyMover) : base(enemyMover)
+    public EnemyAttackState(EnemyStateMachine stateMachine, EnemyMover enemyMover) : base(stateMachine, enemyMover)
     {
 
     }
@@ -30,6 +30,6 @@ public class EnemyAttackState : EnemyBaseState
         _elapsedTime += Time.deltaTime;
 
         if ( _elapsedTime > _secondsToChange)
-            _EnemyMover.SetState(_EnemyMover.StateMachine.ChaseState);
+            StateMachine.SetState(StateMachine.ChaseState);
     }
 }

@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class EnemyChaseState : EnemyBaseState
 {
-    public EnemyChaseState(EnemyMover enemyMover) : base(enemyMover)
+    public EnemyChaseState(EnemyStateMachine stateMachine, EnemyMover enemyMover) : base(stateMachine, enemyMover)
     {
 
     }
@@ -21,9 +21,9 @@ public class EnemyChaseState : EnemyBaseState
 
     public override void Update()
     {
-        _EnemyMover.Move();
+        EnemyMover.Move();
 
-        if (_EnemyMover.IsChasing == false)
-            _EnemyMover.SetState(_EnemyMover.StateMachine.WaitState);
+        if (EnemyMover.IsChasing == false)
+            StateMachine.SetState(StateMachine.WaitState);
     }
 }
