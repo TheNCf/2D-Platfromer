@@ -15,6 +15,7 @@ public class MovementStats : ScriptableObject
     [field: SerializeField] public float GroundBoxHeight { get; private set; } = 0.05f;
 
     [field: Header("Jumping")]
+    [field: SerializeField] public float GravityScale { get; private set; } = 2.0f;
     [field: SerializeField] public float JumpHeight { get; private set; } = 5.0f;
     [field: SerializeField] public float GroundControlRecoverTime { get; private set; } = 0.5f;
 

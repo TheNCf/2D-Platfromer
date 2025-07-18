@@ -61,6 +61,17 @@ public class PlayerMover : MonoBehaviour
         StartCoroutine(DisableControlsCoroutine(_movementStats.GroundControlRecoverTime));
     }
 
+    public void DisableGravity()
+    {
+        _rigidbody.gravityScale = 0;
+        _rigidbody.velocity = Vector2.zero;
+    }
+
+    public void EnableGravity()
+    {
+        _rigidbody.gravityScale = _movementStats.GravityScale;
+    }
+
     private IEnumerator DisableControlsCoroutine(float timeInSeconds)
     {
         CanMove = false;
