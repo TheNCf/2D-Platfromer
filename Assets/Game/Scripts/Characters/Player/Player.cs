@@ -8,6 +8,7 @@ public class Player : MonoBehaviour
     [SerializeField] private PlayerMover _mover;
     [SerializeField] private GroundDetector _groundDetector;
     [SerializeField] private WallGrabDetector _wallGrabDetector;
+    [SerializeField] private PlayerAttacker _attacker;
     [SerializeField] private PlayerVisualizer _visualizer;
     [SerializeField] private CharacterTurner _turner;
 
@@ -22,15 +23,16 @@ public class Player : MonoBehaviour
     {
         _inputReader.JumpPerformed += OnJumpPerformed;
         _inputReader.DashPerformed += OnDashPerformed;
-        _groundDetector.JustGrounded += _mover.DisableControlsOnGrounded;
+        _inputReader.AttackPerformed += OnAttackPerformed;
+        _groundDetector.JustGrounded += OnGrounded;
     }
 
     private void OnDisable()
     {
         _inputReader.JumpPerformed -= OnJumpPerformed;
         _inputReader.DashPerformed -= OnDashPerformed;
-        _groundDetector.JustGrounded -= _mover.DisableControlsOnGrounded;
-
+        _inputReader.AttackPerformed -= OnAttackPerformed;
+        _groundDetector.JustGrounded -= OnGrounded;
     }
 
     private void FixedUpdate()
@@ -40,13 +42,13 @@ public class Player : MonoBehaviour
 
     private void Update()
     {
-        bool isGrabbingWall = _wallGrabDetector.CheckIsGrabbing(_groundDetector.IsGrounded, _turner.FacingRight);
-        _visualizer.UpdateAnimatorParams(_groundDetector.IsGrounded, _mover.CurrentHorizontalVelocity, isGrabbingWall);
+        _wallGrabDetector.CheckIsGrabbing(_groundDetector.IsGrounded, _turner.FacingRight);
+        _visualizer.UpdateAnimatorParams(_groundDetector.IsGrounded, _mover.CurrentHorizontalVelocity, _wallGrabDetector.IsGrabbingWall);
         _turner.Turn(_rigidbody);
 
-        if (isGrabbingWall)
+        if (_wallGrabDetector.IsGrabbingWall)
             _mover.DisableGravity();
-        else 
+        else if (_mover.IsDashing == false)
             _mover.EnableGravity();
     }
 
@@ -63,8 +65,27 @@ public class Player : MonoBehaviour
     {
         if (_mover.CanDash)
         {
-            _mover.Dash(_turner.FacingRight);
+            _mover.Dash(_inputReader.IsLastMovementRight);
             _visualizer.OnDashed(_groundDetector.IsGrounded);
         }
+    }
+
+    private void OnAttackPerformed()
+    {
+        if (_groundDetector.IsGrounded && _mover.IsDashing == false)
+        {
+            _visualizer.OnAttack();
+            _mover.DisableControls(_attacker.AttackControlsRecoverTime);
+        }
+
+        if (_groundDetector.IsGrounded == false && _wallGrabDetector.IsGrabbingWall == false)
+        {
+            _visualizer.OnAttack();
+        }
+    }
+
+    private void OnGrounded()
+    {
+        _mover.DisableControls(_mover.GroundControlsRecoverTime);
     }
 }

@@ -8,9 +8,11 @@ public class InputReader : MonoBehaviour
 
     public Vector2 Movement { get; private set; }
     public bool IsWalking { get; private set; }
+    public bool IsLastMovementRight { get; private set; } = true;
 
     public event Action JumpPerformed;
     public event Action DashPerformed;
+    public event Action AttackPerformed;
 
     private void Awake()
     {
@@ -27,6 +29,7 @@ public class InputReader : MonoBehaviour
         _inputActions.Player.Walk.canceled += OnWalk;
         _inputActions.Player.Jump.started += OnJump;
         _inputActions.Player.Dash.started += OnDash;
+        _inputActions.Player.Attack.started += OnAttack;
     }
 
     private void OnDisable()
@@ -39,11 +42,17 @@ public class InputReader : MonoBehaviour
         _inputActions.Player.Walk.canceled -= OnWalk;
         _inputActions.Player.Jump.started -= OnJump;
         _inputActions.Player.Dash.started -= OnDash;
+        _inputActions.Player.Attack.started -= OnAttack;
     }
 
     private void OnMove(InputAction.CallbackContext context)
     {
         Movement = context.ReadValue<Vector2>();
+
+        if (Movement.x > 0)
+            IsLastMovementRight = true;
+        else if (Movement.x < 0)
+            IsLastMovementRight = false;
     }
 
     private void OnWalk(InputAction.CallbackContext context)
@@ -59,5 +68,10 @@ public class InputReader : MonoBehaviour
     private void OnDash(InputAction.CallbackContext context)
     {
         DashPerformed?.Invoke();
+    }
+
+    private void OnAttack(InputAction.CallbackContext context)
+    {
+        AttackPerformed?.Invoke();
     }
 }

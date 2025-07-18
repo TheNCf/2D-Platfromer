@@ -5,11 +5,13 @@ using UnityEngine;
 public class PlayerMover : MonoBehaviour
 {
     [SerializeField] private MovementStats _movementStats;
+    [field: SerializeField] public float GroundControlsRecoverTime { get; private set; } = 0.5f;
 
     private Rigidbody2D _rigidbody;
 
-    private bool _isDashing = false;
+    private IEnumerator _disableControlsCoroutine;
 
+    public bool IsDashing { get; private set; } = false;
     public bool CanMove { get; private set; } = true;
     public bool CanDash { get; private set; } = true;
     public float CurrentHorizontalVelocity { get; private set; }
@@ -23,8 +25,8 @@ public class PlayerMover : MonoBehaviour
     {
         float acceleration = isGrounded ? _movementStats.GroundedAcceleration : _movementStats.AirAcceleration;
         float deceleration = isGrounded ? _movementStats.GroundedDeceleration : _movementStats.AirDeceleration;
-        acceleration = _isDashing ? _movementStats.DashDrag : acceleration;
-        deceleration = _isDashing ? _movementStats.DashDrag : deceleration;
+        acceleration = IsDashing ? _movementStats.DashDrag : acceleration;
+        deceleration = IsDashing ? _movementStats.DashDrag : deceleration;
 
         if (horizontalInput != 0 && CanMove)
         {
@@ -49,6 +51,7 @@ public class PlayerMover : MonoBehaviour
 
     public void Dash(bool isFacingRight)
     {
+        DisableControls(_movementStats.DashDragOverrideTime);
         StartCoroutine(DisableDash(_movementStats.DashCooldown));
         StartCoroutine(SetDashing(_movementStats.DashDragOverrideTime));
 
@@ -56,20 +59,26 @@ public class PlayerMover : MonoBehaviour
         _rigidbody.velocity = new Vector2(dashDirection * _movementStats.DashForce, _rigidbody.velocity.y);
     }
 
-    public void DisableControlsOnGrounded()
+    public void DisableControls(float duration)
     {
-        StartCoroutine(DisableControlsCoroutine(_movementStats.GroundControlRecoverTime));
+        if (_disableControlsCoroutine != null) 
+            StopCoroutine(_disableControlsCoroutine);
+
+        _disableControlsCoroutine = DisableControlsCoroutine(duration);
+        StartCoroutine(_disableControlsCoroutine);
     }
 
     public void DisableGravity()
     {
         _rigidbody.gravityScale = 0;
         _rigidbody.velocity = Vector2.zero;
+        Debug.Log(0);
     }
 
     public void EnableGravity()
     {
         _rigidbody.gravityScale = _movementStats.GravityScale;
+        Debug.Log(1);
     }
 
     private IEnumerator DisableControlsCoroutine(float timeInSeconds)
@@ -81,9 +90,10 @@ public class PlayerMover : MonoBehaviour
 
     private IEnumerator SetDashing(float timeInSeconds)
     {
-        _isDashing = true;
+        DisableGravity();
+        IsDashing = true;
         yield return new WaitForSeconds(timeInSeconds);
-        _isDashing = false;
+        IsDashing = false;
     }
 
     private IEnumerator DisableDash(float timeInSeconds)

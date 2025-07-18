@@ -45,7 +45,8 @@ public class GroundDetector : MonoBehaviour
     {
         center = _footCollider.bounds.center;
         center.y = _footCollider.bounds.min.y;
-        float width = _footCollider.bounds.size.x;
+        float narrowAmount = 0.05f;
+        float width = _footCollider.bounds.size.x - narrowAmount;
         size = new Vector2(width, _movementStats.GroundBoxHeight);
     }
 }
