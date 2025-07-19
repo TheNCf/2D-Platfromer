@@ -2,17 +2,14 @@ using System.Collections;
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody2D))]
-public class PlayerMover : MonoBehaviour
+public class PlayerMover : CharacterMover
 {
     [SerializeField] private MovementStats _movementStats;
     [field: SerializeField] public float GroundControlsRecoverTime { get; private set; } = 0.5f;
 
     private Rigidbody2D _rigidbody;
 
-    private IEnumerator _disableControlsCoroutine;
-
     public bool IsDashing { get; private set; } = false;
-    public bool CanMove { get; private set; } = true;
     public bool CanDash { get; private set; } = true;
     public float CurrentHorizontalVelocity { get; private set; }
 
@@ -59,15 +56,6 @@ public class PlayerMover : MonoBehaviour
         _rigidbody.velocity = new Vector2(dashDirection * _movementStats.DashForce, _rigidbody.velocity.y);
     }
 
-    public void DisableControls(float duration)
-    {
-        if (_disableControlsCoroutine != null) 
-            StopCoroutine(_disableControlsCoroutine);
-
-        _disableControlsCoroutine = DisableControlsCoroutine(duration);
-        StartCoroutine(_disableControlsCoroutine);
-    }
-
     public void DisableGravity()
     {
         _rigidbody.gravityScale = 0;
@@ -78,13 +66,6 @@ public class PlayerMover : MonoBehaviour
     public void EnableGravity()
     {
         _rigidbody.gravityScale = _movementStats.GravityScale;
-    }
-
-    private IEnumerator DisableControlsCoroutine(float timeInSeconds)
-    {
-        CanMove = false;
-        yield return new WaitForSeconds(timeInSeconds);
-        CanMove = true;
     }
 
     private IEnumerator SetDashing(float timeInSeconds)

@@ -3982,6 +3982,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _maxHealth: 100
+  <StaggerTime>k__BackingField: 0.3
 --- !u!1 &1912907003
 GameObject:
   m_ObjectHideFlags: 0
@@ -4193,6 +4194,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _maxHealth: 100
+  <StaggerTime>k__BackingField: 0.5
 --- !u!1 &1972275756
 GameObject:
   m_ObjectHideFlags: 0
@@ -4485,7 +4487,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _rigidbody: {fileID: 2092750206}
   _damageColorDuration: 0.15
-  _damageColor: {r: 0, g: 1, b: 0.98231816, a: 1}
+  _damageColor: {r: 0.5622641, g: 0, b: 0.048583925, a: 1}
 --- !u!114 &2065027386
 MonoBehaviour:
   m_ObjectHideFlags: 0

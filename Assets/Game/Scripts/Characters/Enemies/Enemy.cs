@@ -49,5 +49,6 @@ public class Enemy : MonoBehaviour
     private void OnDamageTaken()
     {
         _visualizer.OnHurt();
+        _mover.DisableControls(_health.StaggerTime);
     }
 }

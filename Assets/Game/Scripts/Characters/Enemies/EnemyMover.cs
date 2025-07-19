@@ -1,6 +1,7 @@
+using System.Collections;
 using UnityEngine;
 
-public class EnemyMover : MonoBehaviour
+public class EnemyMover : CharacterMover
 {
     [SerializeField] private float _movementSpeed = 1.5f;
 
@@ -23,8 +24,11 @@ public class EnemyMover : MonoBehaviour
 
     public void Move()
     {
-        IsFacingRight = _target.x > transform.position.x;
-        float direction = IsFacingRight ? 1 : -1;
-        _rigidbody.velocity = new Vector2(_movementSpeed * direction, _rigidbody.velocity.y);
+        if (CanMove)
+        {
+            IsFacingRight = _target.x > transform.position.x;
+            float direction = IsFacingRight ? 1 : -1;
+            _rigidbody.velocity = new Vector2(_movementSpeed * direction, _rigidbody.velocity.y);
+        }
     }
 }

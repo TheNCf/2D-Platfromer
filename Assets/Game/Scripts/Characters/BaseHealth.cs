@@ -6,6 +6,7 @@ using UnityEngine;
 public class BaseHealth : MonoBehaviour, IDamageable
 {
     [SerializeField] private int _maxHealth;
+    [field: SerializeField] public float StaggerTime { get; private set; } = 0.3f;
 
     private int _currentHealth;
 
