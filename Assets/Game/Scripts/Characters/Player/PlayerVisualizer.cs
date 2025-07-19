@@ -1,11 +1,12 @@
 using UnityEngine;
 
-public class PlayerVisualizer : MonoBehaviour
+public class PlayerVisualizer : CharacterVisualizer
 {
     private Animator _animator;
 
     private void Awake()
     {
+        Initialize();
         _animator = GetComponent<Animator>();
     }
 
@@ -25,6 +26,12 @@ public class PlayerVisualizer : MonoBehaviour
     public void OnAttack()
     {
         _animator.SetTrigger(PlayerAnimatorData.Params.Attack);
+    }
+
+    public void OnHurt()
+    {
+        _animator.SetTrigger(PlayerAnimatorData.Params.Hurt);
+        DamageSpriteEffect();
     }
 
     public void OnItemPickUp()

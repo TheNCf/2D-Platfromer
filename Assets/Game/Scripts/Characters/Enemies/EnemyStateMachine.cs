@@ -7,12 +7,12 @@ public class EnemyStateMachine
     public EnemyChaseState ChaseState { get; private set; }
     public EnemyAttackState AttackState { get; private set; }
 
-    public EnemyStateMachine(EnemyMover enemyMover)
+    public EnemyStateMachine(EnemyMover mover, EnemyAttacker attacker)
     {
-        PatrolState = new EnemyPatrolState(this, enemyMover);
-        WaitState = new EnemyWaitState(this, enemyMover);
-        ChaseState = new EnemyChaseState(this, enemyMover);
-        AttackState = new EnemyAttackState(this, enemyMover);
+        PatrolState = new EnemyPatrolState(this, mover);
+        WaitState = new EnemyWaitState(this, mover);
+        ChaseState = new EnemyChaseState(this, mover, attacker);
+        AttackState = new EnemyAttackState(this, mover, attacker);
 
         SetState(WaitState);
     }

@@ -4,20 +4,20 @@ using UnityEngine;
 
 public class EnemyAttackState : EnemyBaseState
 {
-    private float _secondsToChange = 0.0f;
+    private EnemyAttacker _attacker;
+
     private float _elapsedTime = 0.0f;
+    private float _attackTime;
 
-    float _attackTime = 0.75f;
-
-    public EnemyAttackState(EnemyStateMachine stateMachine, EnemyMover enemyMover) : base(stateMachine, enemyMover)
+    public EnemyAttackState(EnemyStateMachine stateMachine, EnemyMover mover, EnemyAttacker attacker) : base(stateMachine, mover)
     {
-
+        _attacker = attacker;
     }
 
     public override void Enter()
     {
-        _secondsToChange = _attackTime;
         _elapsedTime = 0.0f;
+        _attackTime = _attacker.Attack();
     }
 
     public override void Exit()
@@ -29,7 +29,7 @@ public class EnemyAttackState : EnemyBaseState
     {
         _elapsedTime += Time.deltaTime;
 
-        if ( _elapsedTime > _secondsToChange)
+        if ( _elapsedTime > _attackTime)
             StateMachine.SetState(StateMachine.ChaseState);
     }
 }

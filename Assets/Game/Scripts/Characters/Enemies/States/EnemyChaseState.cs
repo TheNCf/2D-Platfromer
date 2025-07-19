@@ -4,9 +4,11 @@ using UnityEngine;
 
 public class EnemyChaseState : EnemyBaseState
 {
-    public EnemyChaseState(EnemyStateMachine stateMachine, EnemyMover enemyMover) : base(stateMachine, enemyMover)
-    {
+    private EnemyAttacker _attacker;
 
+    public EnemyChaseState(EnemyStateMachine stateMachine, EnemyMover mover, EnemyAttacker attacker) : base(stateMachine, mover)
+    {
+        _attacker = attacker;
     }
 
     public override void Enter()
@@ -21,9 +23,18 @@ public class EnemyChaseState : EnemyBaseState
 
     public override void Update()
     {
-        EnemyMover.Move();
-
-        if (EnemyMover.IsChasing == false)
+        if (Mover.IsChasing == false)
+        {
             StateMachine.SetState(StateMachine.WaitState);
+            return;
+        }
+
+        if (Mover.transform.position.IsCloseToTarget(Mover.Target, _attacker.SqrDistanceToAttack))
+        {
+            StateMachine.SetState(StateMachine.AttackState);
+            return;
+        }
+
+        Mover.Move();
     }
 }

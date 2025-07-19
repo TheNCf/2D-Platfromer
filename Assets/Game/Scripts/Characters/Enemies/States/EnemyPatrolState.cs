@@ -5,17 +5,14 @@ public class EnemyPatrolState : EnemyBaseState
     private float _secondsToChange = 0.0f;
     private float _elapsedTime = 0.0f;
 
-    private float _minPatrolTime = 1.0f;
-    private float _maxPatrolTime = 2.5f;
-
-    public EnemyPatrolState(EnemyStateMachine stateMachine, EnemyMover enemyMover) : base(stateMachine, enemyMover)
+    public EnemyPatrolState(EnemyStateMachine stateMachine, EnemyMover mover) : base(stateMachine, mover)
     {
 
     }
 
     public override void Enter()
     {
-        _secondsToChange = Random.Range(_minPatrolTime, _maxPatrolTime);
+        _secondsToChange = Random.Range(Mover.MinPatrolTime, Mover.MaxPatrolTime);
         _elapsedTime = 0.0f;
     }
 
@@ -26,9 +23,9 @@ public class EnemyPatrolState : EnemyBaseState
 
     public override void Update()
     {
-        EnemyMover.Move();
+        Mover.Move();
 
-        if (EnemyMover.IsChasing)
+        if (Mover.IsChasing)
             StateMachine.SetState(StateMachine.ChaseState);
 
         _elapsedTime += Time.deltaTime;

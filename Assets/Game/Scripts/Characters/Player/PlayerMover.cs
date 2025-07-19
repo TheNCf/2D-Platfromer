@@ -60,7 +60,6 @@ public class PlayerMover : CharacterMover
     {
         _rigidbody.gravityScale = 0;
         _rigidbody.velocity = Vector2.zero;
-        Debug.Log(0);
     }
 
     public void EnableGravity()

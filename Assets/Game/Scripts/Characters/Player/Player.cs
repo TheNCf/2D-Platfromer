@@ -9,6 +9,7 @@ public class Player : MonoBehaviour
     [SerializeField] private GroundDetector _groundDetector;
     [SerializeField] private WallGrabDetector _wallGrabDetector;
     [SerializeField] private PlayerAttacker _attacker;
+    [SerializeField] private PlayerHealth _health;
     [SerializeField] private PlayerVisualizer _visualizer;
     [SerializeField] private CharacterTurner _turner;
     [SerializeField] private PlayerItemCollector _itemCollector;
@@ -27,6 +28,7 @@ public class Player : MonoBehaviour
         _inputReader.AttackPerformed += OnAttackPerformed;
         _inputReader.UsePerformed += OnUsePerformed;
         _groundDetector.JustGrounded += OnGrounded;
+        _health.DamageTaken += OnDamageTaken;
     }
 
     private void OnDisable()
@@ -36,6 +38,7 @@ public class Player : MonoBehaviour
         _inputReader.AttackPerformed -= OnAttackPerformed;
         _inputReader.UsePerformed -= OnUsePerformed;
         _groundDetector.JustGrounded -= OnGrounded;
+        _health.DamageTaken -= OnDamageTaken;
     }
 
     private void FixedUpdate()
@@ -85,6 +88,12 @@ public class Player : MonoBehaviour
         {
             _visualizer.OnAttack();
         }
+    }
+
+    private void OnDamageTaken()
+    {
+        _visualizer.OnHurt();
+        _mover.DisableControls(_health.StaggerTime);
     }
 
     private void OnUsePerformed()

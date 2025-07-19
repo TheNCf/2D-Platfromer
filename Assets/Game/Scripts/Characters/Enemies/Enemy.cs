@@ -5,6 +5,7 @@ public class Enemy : MonoBehaviour
     [SerializeField] private EnemyMover _mover;
     [SerializeField] private TargetFinder _targetFinder;
     [SerializeField] private EnemyPatroler _patroler;
+    [SerializeField] private EnemyAttacker _attacker;
     [SerializeField] private EnemyHealth _health;
     [SerializeField] private EnemyVisualizer _visualizer;
     [SerializeField] private CharacterTurner _turner;
@@ -15,7 +16,7 @@ public class Enemy : MonoBehaviour
 
     private void Awake()
     {
-        _stateMachine = new EnemyStateMachine(_mover);
+        _stateMachine = new EnemyStateMachine(_mover, _attacker);
 
         _rigidbody = GetComponent<Rigidbody2D>();
     }
@@ -23,11 +24,13 @@ public class Enemy : MonoBehaviour
     private void OnEnable()
     {
         _health.DamageTaken += OnDamageTaken;
+        _attacker.Attacking += _visualizer.OnAttack;
     }
 
     private void OnDisable()
     {
         _health.DamageTaken -= OnDamageTaken;
+        _attacker.Attacking -= _visualizer.OnAttack;
     }
 
     private void FixedUpdate()

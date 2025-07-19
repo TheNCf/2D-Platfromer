@@ -7,17 +7,14 @@ public class EnemyWaitState : EnemyBaseState
     private float _secondsToChange = 0.0f;
     private float _elapsedTime = 0.0f;
 
-    private float _minWaitTime = 1.0f;
-    private float _maxWaitTime = 2.5f;
-
-    public EnemyWaitState(EnemyStateMachine stateMachine, EnemyMover enemyMover) : base(stateMachine, enemyMover)
+    public EnemyWaitState(EnemyStateMachine stateMachine, EnemyMover mover) : base(stateMachine, mover)
     {
 
     }
 
     public override void Enter()
     {
-        _secondsToChange = Random.Range(_minWaitTime, _maxWaitTime);
+        _secondsToChange = Random.Range(Mover.MinWaitTime, Mover.MaxWaitTime);
         _elapsedTime = 0.0f;
     }
 
@@ -28,7 +25,7 @@ public class EnemyWaitState : EnemyBaseState
 
     public override void Update()
     {
-        if (EnemyMover.IsChasing)
+        if (Mover.IsChasing)
             StateMachine.SetState(StateMachine.ChaseState);
 
         _elapsedTime += Time.deltaTime;
