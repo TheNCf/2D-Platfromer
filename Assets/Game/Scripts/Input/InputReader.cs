@@ -13,6 +13,7 @@ public class InputReader : MonoBehaviour
     public event Action JumpPerformed;
     public event Action DashPerformed;
     public event Action AttackPerformed;
+    public event Action UsePerformed;
 
     private void Awake()
     {
@@ -30,6 +31,7 @@ public class InputReader : MonoBehaviour
         _inputActions.Player.Jump.started += OnJump;
         _inputActions.Player.Dash.started += OnDash;
         _inputActions.Player.Attack.started += OnAttack;
+        _inputActions.Player.Use.started += OnUse;
     }
 
     private void OnDisable()
@@ -43,6 +45,7 @@ public class InputReader : MonoBehaviour
         _inputActions.Player.Jump.started -= OnJump;
         _inputActions.Player.Dash.started -= OnDash;
         _inputActions.Player.Attack.started -= OnAttack;
+        _inputActions.Player.Use.started -= OnUse;
     }
 
     private void OnMove(InputAction.CallbackContext context)
@@ -73,5 +76,10 @@ public class InputReader : MonoBehaviour
     private void OnAttack(InputAction.CallbackContext context)
     {
         AttackPerformed?.Invoke();
+    }
+
+    private void OnUse(InputAction.CallbackContext context)
+    {
+        UsePerformed?.Invoke();
     }
 }

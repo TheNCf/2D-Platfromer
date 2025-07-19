@@ -2,23 +2,47 @@ using UnityEngine;
 
 public class PlayerItemCollector : MonoBehaviour
 {
-    [SerializeField] private PlayerWallet _playerCoins;
+    [SerializeField] private Collider2D _collectorCollider;
+    [SerializeField] private LayerMask _itemLayerMask;
+    [SerializeField] private PlayerWallet _playerWallet;
+    [SerializeField] private PlayerHealth _playerHealth;
+    [field: Space(10)]
+    [field: SerializeField] public float ItemPickUpTime { get; private set; } = 0.3f;
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    public bool CollectItem()
     {
-        if (collision.TryGetComponent(out Item item))
+        Bounds bounds = _collectorCollider.bounds;
+        float angle = 0.0f;
+        Collider2D itemCollider = Physics2D.OverlapBox(bounds.center, bounds.size, angle, _itemLayerMask);
+
+        if (itemCollider)
         {
-            switch (item.Type)
+            if (itemCollider.TryGetComponent(out Item item))
             {
-                case ItemType.Coin:
-                    AddCoins(item as Coin);
-                    break;
+                switch (item.Type)
+                {
+                    case ItemType.Coin:
+                        AddCoins(item as Coin);
+                        break;
+                    case ItemType.Medicine:
+                        AddHealth(item as Medicine);
+                        break;
+                }
+
+                return true;
             }
         }
+
+        return false;
     }
 
-    private void AddCoins(Coin coinInteractor)
+    private void AddCoins(Coin coin)
     {
-        _playerCoins.Add(coinInteractor.Take());
+        _playerWallet.Add(coin.Take());
+    }
+
+    private void AddHealth(Medicine medicine)
+    {
+        _playerHealth.Heal(medicine.Take());
     }
 }

@@ -27,6 +27,11 @@ public class PlayerVisualizer : MonoBehaviour
         _animator.SetTrigger(PlayerAnimatorData.Params.Attack);
     }
 
+    public void OnItemPickUp()
+    {
+        _animator.SetTrigger(PlayerAnimatorData.Params.PickUpItem);
+    }
+
     public void UpdateAnimatorParams(bool isGrounded, float horizontalVelocity, bool isGrabbingWall)
     {
         _animator.SetFloat(PlayerAnimatorData.Params.Speed, Mathf.Abs(horizontalVelocity));

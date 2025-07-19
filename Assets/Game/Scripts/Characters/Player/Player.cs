@@ -11,6 +11,7 @@ public class Player : MonoBehaviour
     [SerializeField] private PlayerAttacker _attacker;
     [SerializeField] private PlayerVisualizer _visualizer;
     [SerializeField] private CharacterTurner _turner;
+    [SerializeField] private PlayerItemCollector _itemCollector;
 
     private Rigidbody2D _rigidbody;
 
@@ -24,6 +25,7 @@ public class Player : MonoBehaviour
         _inputReader.JumpPerformed += OnJumpPerformed;
         _inputReader.DashPerformed += OnDashPerformed;
         _inputReader.AttackPerformed += OnAttackPerformed;
+        _inputReader.UsePerformed += OnUsePerformed;
         _groundDetector.JustGrounded += OnGrounded;
     }
 
@@ -32,6 +34,7 @@ public class Player : MonoBehaviour
         _inputReader.JumpPerformed -= OnJumpPerformed;
         _inputReader.DashPerformed -= OnDashPerformed;
         _inputReader.AttackPerformed -= OnAttackPerformed;
+        _inputReader.UsePerformed -= OnUsePerformed;
         _groundDetector.JustGrounded -= OnGrounded;
     }
 
@@ -81,6 +84,18 @@ public class Player : MonoBehaviour
         if (_groundDetector.IsGrounded == false && _wallGrabDetector.IsGrabbingWall == false)
         {
             _visualizer.OnAttack();
+        }
+    }
+
+    private void OnUsePerformed()
+    {
+        if (_groundDetector.IsGrounded && _mover.IsDashing == false)
+        {
+            if (_itemCollector.CollectItem())
+            {
+                _visualizer.OnItemPickUp();
+                _mover.DisableControls(_itemCollector.ItemPickUpTime);
+            }
         }
     }
 
