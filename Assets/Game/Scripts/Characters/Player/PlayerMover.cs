@@ -78,7 +78,6 @@ public class PlayerMover : MonoBehaviour
     public void EnableGravity()
     {
         _rigidbody.gravityScale = _movementStats.GravityScale;
-        Debug.Log(1);
     }
 
     private IEnumerator DisableControlsCoroutine(float timeInSeconds)

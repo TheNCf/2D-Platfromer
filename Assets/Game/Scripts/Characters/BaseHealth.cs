@@ -9,8 +9,10 @@ public class BaseHealth : MonoBehaviour, IDamageable
 
     private int _currentHealth;
 
-    public bool IsAlive => _currentHealth > 0;
+    public event Action DamageTaken;
     public event Action BecameDead;
+
+    public bool IsAlive => _currentHealth > 0;
 
     void Awake()
     {
@@ -20,6 +22,7 @@ public class BaseHealth : MonoBehaviour, IDamageable
     public virtual void TakeDamage(int damage)
     {
         _currentHealth -= damage;
+        DamageTaken?.Invoke();
 
         if (IsAlive ==  false) 
             BecameDead?.Invoke();

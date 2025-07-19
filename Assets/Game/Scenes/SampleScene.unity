@@ -857,6 +857,7 @@ GameObject:
   - component: {fileID: 1115107451}
   - component: {fileID: 1115107452}
   - component: {fileID: 1115107453}
+  - component: {fileID: 1115107454}
   m_Layer: 3
   m_Name: Feet
   m_TagString: Untagged
@@ -931,6 +932,25 @@ MonoBehaviour:
   _groundLayerMask:
     serializedVersion: 2
     m_Bits: 64
+--- !u!114 &1115107454
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1115107450}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 11662198a85a0e943961a3b737a261b3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _collectorCollider: {fileID: 1115107452}
+  _itemLayerMask:
+    serializedVersion: 2
+    m_Bits: 128
+  _playerWallet: {fileID: 2013365870}
+  _playerHealth: {fileID: 0}
+  <ItemPickUpTime>k__BackingField: 0.3
 --- !u!1 &1214868951
 GameObject:
   m_ObjectHideFlags: 0
@@ -3732,6 +3752,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 375d546501190b84cbf34d1289653130, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _damage: 22
   <AttackControlsRecoverTime>k__BackingField: 0.5
 --- !u!1 &1637414726
 GameObject:
@@ -3778,7 +3799,6 @@ GameObject:
   - component: {fileID: 1755263022}
   - component: {fileID: 1755263025}
   - component: {fileID: 1755263021}
-  - component: {fileID: 1755263024}
   m_Layer: 3
   m_Name: Elf Player Character
   m_TagString: Untagged
@@ -3844,19 +3864,6 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 1
   m_Constraints: 4
---- !u!114 &1755263024
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1755263017}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 11662198a85a0e943961a3b737a261b3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _playerCoins: {fileID: 2013365870}
 --- !u!114 &1755263025
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3876,6 +3883,7 @@ MonoBehaviour:
   _attacker: {fileID: 1569206917}
   _visualizer: {fileID: 799038518}
   _turner: {fileID: 799038521}
+  _itemCollector: {fileID: 1115107454}
 --- !u!1 &1831737217
 GameObject:
   m_ObjectHideFlags: 0
@@ -3887,6 +3895,7 @@ GameObject:
   - component: {fileID: 1831737218}
   - component: {fileID: 1831737219}
   - component: {fileID: 1831737220}
+  - component: {fileID: 1831737221}
   m_Layer: 3
   m_Name: Body
   m_TagString: Untagged
@@ -3960,6 +3969,19 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 64
   _characterCollider: {fileID: 1831737219}
+--- !u!114 &1831737221
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1831737217}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8ae791413c219aa4694c32c0e06f8d80, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _maxHealth: 100
 --- !u!1 &1912907003
 GameObject:
   m_ObjectHideFlags: 0
@@ -4100,6 +4122,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1965818727}
   - component: {fileID: 1965818728}
+  - component: {fileID: 1965818729}
   m_Layer: 0
   m_Name: Body
   m_TagString: Untagged
@@ -4157,6 +4180,19 @@ CapsuleCollider2D:
   m_Offset: {x: -0.030125856, y: 0.9790063}
   m_Size: {x: 1.7930951, y: 1.9494805}
   m_Direction: 0
+--- !u!114 &1965818729
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1965818726}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4746b96e715d8684b9ce2fc0758105a7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _maxHealth: 100
 --- !u!1 &1972275756
 GameObject:
   m_ObjectHideFlags: 0
@@ -4293,7 +4329,7 @@ GameObject:
   - component: {fileID: 2013365871}
   - component: {fileID: 2013365870}
   m_Layer: 3
-  m_Name: Player Coins
+  m_Name: Player Wallet
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4448,6 +4484,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _rigidbody: {fileID: 2092750206}
+  _damageColorDuration: 0.15
+  _damageColor: {r: 0, g: 1, b: 0.98231816, a: 1}
 --- !u!114 &2065027386
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4540,6 +4578,8 @@ MonoBehaviour:
   _mover: {fileID: 2092750209}
   _targetFinder: {fileID: 1983332401}
   _patroler: {fileID: 627216088}
+  _health: {fileID: 1965818729}
+  _visualizer: {fileID: 2065027385}
   _turner: {fileID: 2065027386}
 --- !u!114 &2092750209
 MonoBehaviour:

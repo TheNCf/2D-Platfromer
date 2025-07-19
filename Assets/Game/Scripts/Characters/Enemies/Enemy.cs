@@ -5,6 +5,8 @@ public class Enemy : MonoBehaviour
     [SerializeField] private EnemyMover _mover;
     [SerializeField] private TargetFinder _targetFinder;
     [SerializeField] private EnemyPatroler _patroler;
+    [SerializeField] private EnemyHealth _health;
+    [SerializeField] private EnemyVisualizer _visualizer;
     [SerializeField] private CharacterTurner _turner;
 
     private EnemyStateMachine _stateMachine;
@@ -18,9 +20,18 @@ public class Enemy : MonoBehaviour
         _rigidbody = GetComponent<Rigidbody2D>();
     }
 
+    private void OnEnable()
+    {
+        _health.DamageTaken += OnDamageTaken;
+    }
+
+    private void OnDisable()
+    {
+        _health.DamageTaken -= OnDamageTaken;
+    }
+
     private void FixedUpdate()
     {
-
         Vector3 target;
 
         if (_targetFinder.IsChasing)
@@ -33,5 +44,10 @@ public class Enemy : MonoBehaviour
         _mover.SetTarget(target);
 
         _stateMachine.RunState();
+    }
+
+    private void OnDamageTaken()
+    {
+        _visualizer.OnHurt();
     }
 }
