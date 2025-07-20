@@ -30,6 +30,11 @@ public class EnemyVisualizer : CharacterVisualizer
         _animator.SetTrigger(EnemyAnimatorData.Params.Attack);
     }
 
+    public void OnDeath()
+    {
+        _animator.SetTrigger(EnemyAnimatorData.Params.Death);
+    }
+
     private void SetAnimatorParameters()
     {
         _animator.SetFloat(EnemyAnimatorData.Params.Speed, Mathf.Abs(_rigidbody.velocity.x));

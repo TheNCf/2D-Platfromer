@@ -23,18 +23,19 @@ public class Enemy : MonoBehaviour
 
     private void OnEnable()
     {
-        _health.DamageTaken += OnDamageTaken;
-        _attacker.Attacking += _visualizer.OnAttack;
+        SubscribeToEvents();
     }
 
     private void OnDisable()
     {
-        _health.DamageTaken -= OnDamageTaken;
-        _attacker.Attacking -= _visualizer.OnAttack;
+        UnsubscribeFromEvents();
     }
 
     private void FixedUpdate()
     {
+        if (_health.IsAlive == false)
+            return;
+
         Vector3 target;
 
         if (_targetFinder.IsChasing)
@@ -53,5 +54,25 @@ public class Enemy : MonoBehaviour
     {
         _visualizer.OnHurt();
         _mover.DisableControls(_health.StaggerTime);
+    }
+
+    private void OnDeath()
+    {
+        _visualizer.OnDeath();
+        UnsubscribeFromEvents();
+    }
+
+    private void SubscribeToEvents()
+    {
+        _health.DamageTaken += OnDamageTaken;
+        _attacker.Attacking += _visualizer.OnAttack;
+        _health.BecameDead += OnDeath;
+    }
+
+    private void UnsubscribeFromEvents()
+    {
+        _health.DamageTaken -= OnDamageTaken;
+        _attacker.Attacking -= _visualizer.OnAttack;
+        _health.BecameDead -= OnDeath;
     }
 }

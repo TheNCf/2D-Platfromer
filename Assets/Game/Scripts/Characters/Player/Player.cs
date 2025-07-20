@@ -93,7 +93,7 @@ public class Player : MonoBehaviour
 
     private void OnDashPerformed()
     {
-        if (_mover.CanDash)
+        if (_mover.CanDash && _mover.IsClimbing == false && _wallGrabDetector.IsGrabbingWall == false)
         {
             _mover.Dash(_inputReader.IsLastMovementRight);
             _visualizer.OnDashed(_groundDetector.IsGrounded);
