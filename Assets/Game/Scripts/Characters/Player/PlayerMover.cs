@@ -11,6 +11,7 @@ public class PlayerMover : CharacterMover
 
     public bool IsDashing { get; private set; } = false;
     public bool CanDash { get; private set; } = true;
+    public bool IsClimbing { get; private set; } = false;
     public float CurrentHorizontalVelocity { get; private set; }
 
     private void Awake()
@@ -56,6 +57,13 @@ public class PlayerMover : CharacterMover
         _rigidbody.velocity = new Vector2(dashDirection * _movementStats.DashForce, _rigidbody.velocity.y);
     }
 
+    public void Climb(float time, bool isFacingRight)
+    {
+        float direction = isFacingRight ? 1 : -1;
+
+        StartCoroutine(ClimbCoroutine(time, direction));
+    }
+
     public void DisableGravity()
     {
         _rigidbody.gravityScale = 0;
@@ -80,5 +88,13 @@ public class PlayerMover : CharacterMover
         CanDash = false;
         yield return new WaitForSeconds(timeInSeconds);
         CanDash = true;
+    }
+
+    private IEnumerator ClimbCoroutine(float time, float direction)
+    {
+        IsClimbing = true;
+        yield return new WaitForSeconds(time);
+        transform.Translate(1.0f * direction, 2.0f, 0.0f);
+        IsClimbing = false;
     }
 }

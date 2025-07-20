@@ -2,7 +2,11 @@ using UnityEngine;
 
 public class PlayerVisualizer : CharacterVisualizer
 {
+    [SerializeField] private AnimationClip _wallClimbUpClip;
+
     private Animator _animator;
+
+    public float ClimbTime => _wallClimbUpClip.length;
 
     private void Awake()
     {
@@ -32,6 +36,16 @@ public class PlayerVisualizer : CharacterVisualizer
     {
         _animator.SetTrigger(PlayerAnimatorData.Params.Hurt);
         DamageSpriteEffect();
+    }
+
+    public void OnDeath()
+    {
+        _animator.SetTrigger(PlayerAnimatorData.Params.Death);
+    }
+
+    public void OnWallClimbUp()
+    {
+        _animator.SetTrigger(PlayerAnimatorData.Params.WallClimbUp);
     }
 
     public void OnItemPickUp()

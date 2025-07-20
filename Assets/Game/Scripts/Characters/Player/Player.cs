@@ -23,32 +23,28 @@ public class Player : MonoBehaviour
 
     private void OnEnable()
     {
-        _inputReader.JumpPerformed += OnJumpPerformed;
-        _inputReader.DashPerformed += OnDashPerformed;
-        _inputReader.AttackPerformed += OnAttackPerformed;
-        _inputReader.UsePerformed += OnUsePerformed;
-        _groundDetector.JustGrounded += OnGrounded;
-        _health.DamageTaken += OnDamageTaken;
+        SubscribeToEvents();
     }
 
     private void OnDisable()
     {
-        _inputReader.JumpPerformed -= OnJumpPerformed;
-        _inputReader.DashPerformed -= OnDashPerformed;
-        _inputReader.AttackPerformed -= OnAttackPerformed;
-        _inputReader.UsePerformed -= OnUsePerformed;
-        _groundDetector.JustGrounded -= OnGrounded;
-        _health.DamageTaken -= OnDamageTaken;
+        UnsubscribeFromEvents();
     }
 
     private void FixedUpdate()
     {
+        if (_health.IsAlive == false || _mover.IsClimbing == true)
+            return;
+
         _mover.Move(_groundDetector.IsGrounded, _inputReader.Movement.x, _inputReader.IsWalking);
     }
 
     private void Update()
     {
-        _wallGrabDetector.CheckIsGrabbing(_groundDetector.IsGrounded, _turner.FacingRight);
+        if (_health.IsAlive == false) 
+            return;
+
+        _wallGrabDetector.DetectIsGrabbing(_groundDetector.IsGrounded, _turner.FacingRight);
         _visualizer.UpdateAnimatorParams(_groundDetector.IsGrounded, _mover.CurrentHorizontalVelocity, _wallGrabDetector.IsGrabbingWall);
         _turner.Turn(_rigidbody);
 
@@ -56,6 +52,34 @@ public class Player : MonoBehaviour
             _mover.DisableGravity();
         else if (_mover.IsDashing == false)
             _mover.EnableGravity();
+
+        if (_wallGrabDetector.IsGrabbingWall && _inputReader.Movement.y > 0.1f && _mover.IsClimbing == false)
+        {
+            _visualizer.OnWallClimbUp();
+            _mover.Climb(_visualizer.ClimbTime, _turner.FacingRight);
+        }
+    }
+
+    private void SubscribeToEvents()
+    {
+        _inputReader.JumpPerformed += OnJumpPerformed;
+        _inputReader.DashPerformed += OnDashPerformed;
+        _inputReader.AttackPerformed += OnAttackPerformed;
+        _inputReader.UsePerformed += OnUsePerformed;
+        _groundDetector.JustGrounded += OnGrounded;
+        _health.DamageTaken += OnDamageTaken;
+        _health.BecameDead += OnDeath;
+    }
+
+    private void UnsubscribeFromEvents()
+    {
+        _inputReader.JumpPerformed -= OnJumpPerformed;
+        _inputReader.DashPerformed -= OnDashPerformed;
+        _inputReader.AttackPerformed -= OnAttackPerformed;
+        _inputReader.UsePerformed -= OnUsePerformed;
+        _groundDetector.JustGrounded -= OnGrounded;
+        _health.DamageTaken -= OnDamageTaken;
+        _health.BecameDead -= OnDeath;
     }
 
     private void OnJumpPerformed()
@@ -111,5 +135,12 @@ public class Player : MonoBehaviour
     private void OnGrounded()
     {
         _mover.DisableControls(_mover.GroundControlsRecoverTime);
+    }
+
+    private void OnDeath()
+    {
+        _visualizer.OnDeath();
+        _mover.EnableGravity();
+        UnsubscribeFromEvents();
     }
 }

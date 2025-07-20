@@ -714,6 +714,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _damageColorDuration: 0.15
   _damageColor: {r: 0.6392157, g: 0.019607844, b: 0.10588236, a: 1}
+  _wallClimbUpClip: {fileID: 7400000, guid: b063e88eb0ddfef4cb490f7cdac5e380, type: 2}
 --- !u!95 &799038519
 Animator:
   serializedVersion: 5
@@ -3992,6 +3993,8 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 64
   _characterCollider: {fileID: 1831737219}
+  _grabbingDistance: 0.05
+  _notGrabbingHeight: 0.05
 --- !u!114 &1831737221
 MonoBehaviour:
   m_ObjectHideFlags: 0

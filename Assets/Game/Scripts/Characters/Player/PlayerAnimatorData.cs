@@ -12,6 +12,8 @@ public static class PlayerAnimatorData
         public static readonly int Slide = Animator.StringToHash(nameof(Slide));
         public static readonly int Attack = Animator.StringToHash(nameof(Attack));
         public static readonly int Hurt = Animator.StringToHash(nameof(Hurt));
+        public static readonly int Death = Animator.StringToHash(nameof(Death));
+        public static readonly int WallClimbUp = Animator.StringToHash(nameof(WallClimbUp));
         public static readonly int PickUpItem = Animator.StringToHash(nameof(PickUpItem));
         public static readonly int IsGrounded = Animator.StringToHash(nameof(IsGrounded));
         public static readonly int IsGrabbingWall = Animator.StringToHash(nameof(IsGrabbingWall));

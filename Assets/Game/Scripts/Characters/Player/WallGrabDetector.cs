@@ -8,12 +8,12 @@ public class WallGrabDetector : MonoBehaviour
     [SerializeField] private LayerMask _grabbingLayer;
     [SerializeField] private Collider2D _characterCollider;
 
-    private float _grabbingDistance = 0.05f;
-    private float _notGrabbingHeight = 0.05f;
+    [SerializeField] private float _grabbingDistance = 0.05f;
+    [SerializeField] private float _notGrabbingHeight = 0.05f;
 
     public bool IsGrabbingWall { get; private set; } = false;
 
-    public void CheckIsGrabbing(bool isGrounded, bool isFacingRight)
+    public void DetectIsGrabbing(bool isGrounded, bool isFacingRight)
     {
         if (isGrounded)
         {
