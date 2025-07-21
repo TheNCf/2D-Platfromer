@@ -8,7 +8,7 @@ public class BackgroundLayer : MonoBehaviour
 
     private SpriteRenderer _spriteRenderer;
 
-    public Vector2 Extents => _spriteRenderer.bounds.extents / 3.0f;
+    public Vector2 Size => _spriteRenderer.bounds.size / 3.0f;
 
     private void Awake()
     {

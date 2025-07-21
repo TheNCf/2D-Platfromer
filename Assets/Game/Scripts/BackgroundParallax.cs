@@ -8,29 +8,20 @@ public class BackgroundParallax : MonoBehaviour
     [SerializeField] private Camera _camera;
     [SerializeField] private float _heightOffset;
 
-    private bool _isValidate = true;
-
-    private void OnValidate()
-    {
-        _isValidate = true;
-        CalculatePositions(_isValidate);
-    }
-
-    private void Awake()
-    {
-        _isValidate = false;
-    }
-
     private void Update()
     {
-        CalculatePositions(_isValidate);
+        CalculatePositions();
     }
 
-    private void CalculatePositions(bool isValidate)
+    private void CalculatePositions()
     {
         foreach (var layer in _backgroundLayers)
         {
             float horizontalDistance = _camera.transform.position.x * layer.Displacement;
+
+            int multiplier = Mathf.FloorToInt(_camera.transform.position.x * layer.Displacement / layer.Size.x);
+            horizontalDistance -= multiplier * layer.Size.x;
+
             Vector2 position = _camera.transform.position + Vector3.up * _heightOffset - Vector3.right * horizontalDistance;
             layer.transform.position = position;
         }
