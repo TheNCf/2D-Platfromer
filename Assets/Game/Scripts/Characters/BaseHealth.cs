@@ -1,36 +1,48 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class BaseHealth : MonoBehaviour, IDamageable
 {
-    [SerializeField] private int _maxHealth;
+    [field: SerializeField] public int MaxHealth { get; private set; }
     [field: SerializeField] public float StaggerTime { get; private set; } = 0.3f;
 
     private int _currentHealth;
 
+    public event Action<int> HealthChanged;
     public event Action DamageTaken;
     public event Action BecameDead;
 
-    public bool IsAlive => _currentHealth > 0;
-
-    void Awake()
+    public int CurrentHealth
     {
-        _currentHealth = _maxHealth;
+        get
+        {
+            return _currentHealth;
+        }
+
+        private set
+        {
+            _currentHealth = value;
+            HealthChanged?.Invoke(value);
+        }
+    }
+    public bool IsAlive => CurrentHealth > 0;
+
+    private void Awake()
+    {
+        CurrentHealth = MaxHealth;
     }
 
     public virtual void TakeDamage(int damage)
     {
-        _currentHealth -= damage;
+        CurrentHealth -= damage;
         DamageTaken?.Invoke();
 
-        if (IsAlive ==  false) 
+        if (IsAlive == false)
             BecameDead?.Invoke();
     }
 
     public virtual void Heal(int amount)
     {
-        _currentHealth = Mathf.Clamp(_currentHealth + amount, 0, _maxHealth);
+        CurrentHealth = Mathf.Clamp(CurrentHealth + amount, 0, MaxHealth);
     }
 }

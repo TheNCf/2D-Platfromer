@@ -10,7 +10,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 452542829962144540, guid: 203019660738e0447a1377a6a4791a74, type: 3}
       propertyPath: m_Name
-      value: Health Potion Large Variant
+      value: Health Potion Large
       objectReference: {fileID: 0}
     - target: {fileID: 3566547626660061907, guid: 203019660738e0447a1377a6a4791a74, type: 3}
       propertyPath: m_Sprite
@@ -58,7 +58,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7418469391078410220, guid: 203019660738e0447a1377a6a4791a74, type: 3}
       propertyPath: _value
-      value: 60
+      value: 600
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
