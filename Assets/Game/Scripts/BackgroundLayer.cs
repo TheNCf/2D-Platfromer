@@ -8,7 +8,9 @@ public class BackgroundLayer : MonoBehaviour
 
     private SpriteRenderer _spriteRenderer;
 
-    public Vector2 Size => _spriteRenderer.bounds.size / 3.0f;
+    private float _widthMultiplier = 3.0f;
+
+    public Vector2 Size => _spriteRenderer.bounds.size / _widthMultiplier;
 
     private void Awake()
     {

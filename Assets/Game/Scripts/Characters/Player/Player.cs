@@ -89,6 +89,12 @@ public class Player : MonoBehaviour
             _mover.Jump();
             _visualizer.OnJumped();
         }
+
+        if (_wallGrabDetector.IsGrabbingWall && _mover.IsClimbing == false)
+        {
+            _mover.JumpFromHanging(_turner.FacingRight);
+            //_visualizer.OnJumped();
+        }
     }
 
     private void OnDashPerformed()

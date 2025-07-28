@@ -64,6 +64,16 @@ public class PlayerMover : CharacterMover
         StartCoroutine(ClimbCoroutine(time, direction));
     }
 
+    public void JumpFromHanging(bool isFacingRight)
+    {
+        float direction = isFacingRight ? -1 : 1;
+        float amountOfTranslationFromWall = 0.3f;
+
+        EnableGravity();
+        transform.Translate(Vector3.right * direction * amountOfTranslationFromWall);
+        _rigidbody.velocity = new Vector2(_movementStats.RunSpeed * direction, _movementStats.JumpHeight);
+    }
+
     public void DisableGravity()
     {
         _rigidbody.gravityScale = 0;
