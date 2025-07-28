@@ -17,6 +17,11 @@ public class CharacterMover : MonoBehaviour
         StartCoroutine(_disableControlsCoroutine);
     }
 
+    public void EnableControls()
+    {
+        CanMove = true;
+    }
+
     private IEnumerator DisableControlsCoroutine(float timeInSeconds)
     {
         CanMove = false;

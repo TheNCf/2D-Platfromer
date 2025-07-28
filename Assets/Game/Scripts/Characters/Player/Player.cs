@@ -36,7 +36,14 @@ public class Player : MonoBehaviour
         if (_health.IsAlive == false || _mover.IsClimbing == true)
             return;
 
+        _wallGrabDetector.DetectIsGrabbing(_groundDetector.IsGrounded, _turner.FacingRight);
+
         _mover.Move(_groundDetector.IsGrounded, _inputReader.Movement.x, _inputReader.IsWalking);
+
+        if (_wallGrabDetector.IsGrabbingWall)
+            _mover.DisableGravity();
+        else if (_mover.IsDashing == false)
+            _mover.EnableGravity();
     }
 
     private void Update()
@@ -44,14 +51,8 @@ public class Player : MonoBehaviour
         if (_health.IsAlive == false) 
             return;
 
-        _wallGrabDetector.DetectIsGrabbing(_groundDetector.IsGrounded, _turner.FacingRight);
         _visualizer.UpdateAnimatorParams(_groundDetector.IsGrounded, _mover.CurrentHorizontalVelocity, _wallGrabDetector.IsGrabbingWall);
         _turner.Turn(_rigidbody);
-
-        if (_wallGrabDetector.IsGrabbingWall)
-            _mover.DisableGravity();
-        else if (_mover.IsDashing == false)
-            _mover.EnableGravity();
 
         if (_wallGrabDetector.IsGrabbingWall && _inputReader.Movement.y > 0.1f && _mover.IsClimbing == false)
         {
@@ -93,7 +94,7 @@ public class Player : MonoBehaviour
         if (_wallGrabDetector.IsGrabbingWall && _mover.IsClimbing == false)
         {
             _mover.JumpFromHanging(_turner.FacingRight);
-            //_visualizer.OnJumped();
+            _visualizer.OnJumped();
         }
     }
 

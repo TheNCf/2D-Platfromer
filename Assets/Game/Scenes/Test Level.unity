@@ -723,7 +723,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 216.40002, y: -49.679993}
+  m_AnchoredPosition: {x: 216.3999, y: -49.67993}
   m_SizeDelta: {x: 366.28003, y: 99.359985}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &557818154
@@ -5807,6 +5807,18 @@ PrefabInstance:
     - target: {fileID: 2238088886535294654, guid: d60d89d9cc775d748be03fedcc92ff28, type: 3}
       propertyPath: <MaxHealth>k__BackingField
       value: 1000
+      objectReference: {fileID: 0}
+    - target: {fileID: 7598341419645247243, guid: d60d89d9cc775d748be03fedcc92ff28, type: 3}
+      propertyPath: m_Size.x
+      value: 0.5488823
+      objectReference: {fileID: 0}
+    - target: {fileID: 7598341419645247243, guid: d60d89d9cc775d748be03fedcc92ff28, type: 3}
+      propertyPath: m_Offset.x
+      value: -0.12588528
+      objectReference: {fileID: 0}
+    - target: {fileID: 7598341419645247243, guid: d60d89d9cc775d748be03fedcc92ff28, type: 3}
+      propertyPath: m_Offset.y
+      value: 0.13472548
       objectReference: {fileID: 0}
     - target: {fileID: 8399175181578481327, guid: d60d89d9cc775d748be03fedcc92ff28, type: 3}
       propertyPath: _damage

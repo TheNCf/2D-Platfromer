@@ -67,11 +67,12 @@ public class PlayerMover : CharacterMover
     public void JumpFromHanging(bool isFacingRight)
     {
         float direction = isFacingRight ? -1 : 1;
-        float amountOfTranslationFromWall = 0.3f;
+        float amountOfTranslation = 0.3f;
+        float jumpHeightModifier = 0.8f;
 
-        EnableGravity();
-        transform.Translate(Vector3.right * direction * amountOfTranslationFromWall);
-        _rigidbody.velocity = new Vector2(_movementStats.RunSpeed * direction, _movementStats.JumpHeight);
+        EnableControls();
+        transform.Translate(direction * amountOfTranslation, amountOfTranslation, 0.0f);
+        _rigidbody.velocity = new Vector2(_movementStats.RunSpeed * direction, _movementStats.JumpHeight * jumpHeightModifier);
     }
 
     public void DisableGravity()
