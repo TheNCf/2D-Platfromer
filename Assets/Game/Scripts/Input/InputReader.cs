@@ -9,6 +9,7 @@ public class InputReader : MonoBehaviour
     public Vector2 Movement { get; private set; }
     public bool IsWalking { get; private set; }
     public bool IsLastMovementRight { get; private set; } = true;
+    public bool IsVampireAttack { get; private set; }
 
     public event Action JumpPerformed;
     public event Action DashPerformed;
@@ -32,6 +33,8 @@ public class InputReader : MonoBehaviour
         _inputActions.Player.Dash.started += OnDash;
         _inputActions.Player.Attack.started += OnAttack;
         _inputActions.Player.Use.started += OnUse;
+        _inputActions.Player.Ability.started += OnAbility;
+        _inputActions.Player.Ability.canceled += OnAbility;
     }
 
     private void OnDisable()
@@ -46,6 +49,8 @@ public class InputReader : MonoBehaviour
         _inputActions.Player.Dash.started -= OnDash;
         _inputActions.Player.Attack.started -= OnAttack;
         _inputActions.Player.Use.started -= OnUse;
+        _inputActions.Player.Ability.started -= OnAbility;
+        _inputActions.Player.Ability.canceled -= OnAbility;
     }
 
     private void OnMove(InputAction.CallbackContext context)
@@ -81,5 +86,10 @@ public class InputReader : MonoBehaviour
     private void OnUse(InputAction.CallbackContext context)
     {
         UsePerformed?.Invoke();
+    }
+
+    private void OnAbility(InputAction.CallbackContext context)
+    {
+        IsVampireAttack = context.ReadValueAsButton();
     }
 }
