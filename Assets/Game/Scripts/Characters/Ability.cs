@@ -10,11 +10,11 @@ public abstract class Ability : MonoBehaviour
     public bool IsActive { get; private set; } = false;
     public bool IsOnCooldown { get; private set; } = false;
 
-    public virtual float StartAbility(MonoBehaviour coroutineStarter)
+    public virtual float StartAbility()
     {
         if (IsOnCooldown == false)
         {
-            coroutineStarter.StartCoroutine(AbilityCoroutine());
+            StartCoroutine(AbilityCoroutine());
             return _duration;
         }
 

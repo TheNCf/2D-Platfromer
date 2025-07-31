@@ -146,7 +146,7 @@ public class Player : MonoBehaviour
     {
         if (_mover.IsDashing == false && _groundDetector.IsGrounded)
         {
-            _mover.DisableControls(_playerAbility.StartAbility(this));
+            _mover.DisableControls(_playerAbility.StartAbility());
         }
     }
 

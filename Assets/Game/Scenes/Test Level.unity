@@ -194,7 +194,7 @@ GameObject:
   m_Component:
   - component: {fileID: 131628404}
   - component: {fileID: 131628405}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Feet
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -382,7 +382,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 494058267}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Patrol Point (4)
   m_TagString: Untagged
   m_Icon: {fileID: 3443629218296621865, guid: 0000000000000000d000000000000000, type: 0}
@@ -835,7 +835,7 @@ GameObject:
   m_Component:
   - component: {fileID: 627216087}
   - component: {fileID: 627216088}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Patrol Points
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -974,7 +974,7 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 2238088886535294654, guid: d60d89d9cc775d748be03fedcc92ff28, type: 3}
   m_PrefabInstance: {fileID: 171812318907249939}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 1016116976}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8ae791413c219aa4694c32c0e06f8d80, type: 3}
@@ -1064,7 +1064,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 829232214}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Patrol Point (3)
   m_TagString: Untagged
   m_Icon: {fileID: 3306451490063965843, guid: 0000000000000000d000000000000000, type: 0}
@@ -1238,7 +1238,7 @@ GameObject:
   - component: {fileID: 889457197}
   - component: {fileID: 889457199}
   - component: {fileID: 889457198}
-  m_Layer: 3
+  m_Layer: 9
   m_Name: Fill
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1313,7 +1313,7 @@ GameObject:
   - component: {fileID: 908597914}
   - component: {fileID: 908597915}
   - component: {fileID: 908597916}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Attack
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1457,6 +1457,31 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 4461008240742437349, guid: 203019660738e0447a1377a6a4791a74, type: 3}
   m_PrefabInstance: {fileID: 943851563}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1016116976 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2429159677179285391, guid: d60d89d9cc775d748be03fedcc92ff28, type: 3}
+  m_PrefabInstance: {fileID: 171812318907249939}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1016116980
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1016116976}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 67fcffe18f09c2a49b10bf9102930f30, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _duration: 6
+  _cooldown: 4
+  _enemyLayerMask:
+    serializedVersion: 2
+    m_Bits: 512
+  _radius: 6
+  _absorbtionAmount: 5
+  _absorptionCooldown: 0.2
 --- !u!1 &1142204472
 GameObject:
   m_ObjectHideFlags: 0
@@ -3963,7 +3988,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1247332990}
-  m_Layer: 3
+  m_Layer: 9
   m_Name: Handle Slide Area
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3989,11 +4014,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: -20, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!1 &1258029344 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 849902172789820627, guid: d60d89d9cc775d748be03fedcc92ff28, type: 3}
-  m_PrefabInstance: {fileID: 171812318907249939}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1328594307
 GameObject:
   m_ObjectHideFlags: 0
@@ -4003,7 +4023,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1328594308}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Patrol Point (2)
   m_TagString: Untagged
   m_Icon: {fileID: 7422848464349959988, guid: 0000000000000000d000000000000000, type: 0}
@@ -4109,7 +4129,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1637414727}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Colliders
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4325,20 +4345,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 9203183002825874663, guid: d60d89d9cc775d748be03fedcc92ff28, type: 3}
   m_PrefabInstance: {fileID: 171812318907249939}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1755263024
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1258029344}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 67fcffe18f09c2a49b10bf9102930f30, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _duration: 6
-  _cooldown: 4
 --- !u!1 &1834005843
 GameObject:
   m_ObjectHideFlags: 0
@@ -4353,7 +4359,7 @@ GameObject:
   - component: {fileID: 1834005847}
   - component: {fileID: 1834005846}
   - component: {fileID: 1834005845}
-  m_Layer: 3
+  m_Layer: 9
   m_Name: GUI
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4629,7 +4635,7 @@ GameObject:
   - component: {fileID: 1956094667}
   - component: {fileID: 1956094669}
   - component: {fileID: 1956094668}
-  m_Layer: 3
+  m_Layer: 9
   m_Name: Background
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4704,7 +4710,7 @@ GameObject:
   - component: {fileID: 1965818727}
   - component: {fileID: 1965818728}
   - component: {fileID: 1965818729}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Body
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4817,7 +4823,7 @@ GameObject:
   - component: {fileID: 1983332400}
   - component: {fileID: 1983332399}
   - component: {fileID: 1983332401}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Chase Trigger
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4948,7 +4954,7 @@ GameObject:
   - component: {fileID: 2022737163}
   - component: {fileID: 2022737162}
   - component: {fileID: 2022737161}
-  m_Layer: 3
+  m_Layer: 9
   m_Name: Health Bar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5173,7 +5179,7 @@ GameObject:
   - component: {fileID: 2065027383}
   - component: {fileID: 2065027385}
   - component: {fileID: 2065027386}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Visuals
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5550,7 +5556,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2090210624}
-  m_Layer: 3
+  m_Layer: 9
   m_Name: Fill Area
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5589,7 +5595,7 @@ GameObject:
   - component: {fileID: 2092750206}
   - component: {fileID: 2092750208}
   - component: {fileID: 2092750209}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Golem Blue
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5789,7 +5795,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2123730574}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Patrol Point (1)
   m_TagString: Untagged
   m_Icon: {fileID: 4422084297763085224, guid: 0000000000000000d000000000000000, type: 0}
@@ -5862,7 +5868,7 @@ PrefabInstance:
     - target: {fileID: 8604285956971447315, guid: d60d89d9cc775d748be03fedcc92ff28, type: 3}
       propertyPath: _playerAbility
       value: 
-      objectReference: {fileID: 1755263024}
+      objectReference: {fileID: 1016116980}
     - target: {fileID: 9203183002825874663, guid: d60d89d9cc775d748be03fedcc92ff28, type: 3}
       propertyPath: m_LocalPosition.x
       value: -6.474225
@@ -5910,9 +5916,9 @@ PrefabInstance:
       insertIndex: 1
       addedObject: {fileID: 2070609658}
     m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 849902172789820627, guid: d60d89d9cc775d748be03fedcc92ff28, type: 3}
+    - targetCorrespondingSourceObject: {fileID: 2429159677179285391, guid: d60d89d9cc775d748be03fedcc92ff28, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 1755263024}
+      addedObject: {fileID: 1016116980}
   m_SourcePrefab: {fileID: 100100000, guid: d60d89d9cc775d748be03fedcc92ff28, type: 3}
 --- !u!1001 &6423351772870875311
 PrefabInstance:
