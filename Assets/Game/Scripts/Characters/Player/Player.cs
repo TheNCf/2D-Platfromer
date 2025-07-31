@@ -9,6 +9,7 @@ public class Player : MonoBehaviour
     [SerializeField] private GroundDetector _groundDetector;
     [SerializeField] private WallGrabDetector _wallGrabDetector;
     [SerializeField] private PlayerAttacker _attacker;
+    [SerializeField] private Ability _playerAbility;
     [SerializeField] private PlayerHealth _health;
     [SerializeField] private PlayerVisualizer _visualizer;
     [SerializeField] private CharacterTurner _turner;
@@ -67,6 +68,7 @@ public class Player : MonoBehaviour
         _inputReader.DashPerformed += OnDashPerformed;
         _inputReader.AttackPerformed += OnAttackPerformed;
         _inputReader.UsePerformed += OnUsePerformed;
+        _inputReader.AbilityPerformed += OnAbility;
         _groundDetector.JustGrounded += OnGrounded;
         _health.DamageTaken += OnDamageTaken;
         _health.BecameDead += OnDeath;
@@ -78,6 +80,7 @@ public class Player : MonoBehaviour
         _inputReader.DashPerformed -= OnDashPerformed;
         _inputReader.AttackPerformed -= OnAttackPerformed;
         _inputReader.UsePerformed -= OnUsePerformed;
+        _inputReader.AbilityPerformed -= OnAbility;
         _groundDetector.JustGrounded -= OnGrounded;
         _health.DamageTaken -= OnDamageTaken;
         _health.BecameDead -= OnDeath;
@@ -137,6 +140,11 @@ public class Player : MonoBehaviour
                 _mover.DisableControls(_itemCollector.ItemPickUpTime);
             }
         }
+    }
+
+    private void OnAbility()
+    {
+        _playerAbility.StartAbility(this);
     }
 
     private void OnGrounded()
