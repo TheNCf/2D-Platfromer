@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class Ability
+public abstract class Ability : MonoBehaviour
 {
     [SerializeField] private float _duration = 6.0f;
     [SerializeField] private float _cooldown = 4.0f;
@@ -10,12 +10,15 @@ public abstract class Ability
     public bool IsActive { get; private set; } = false;
     public bool IsOnCooldown { get; private set; } = false;
 
-    public virtual void StartAbility(MonoBehaviour coroutineStarter)
+    public virtual float StartAbility(MonoBehaviour coroutineStarter)
     {
         if (IsOnCooldown == false)
         {
             coroutineStarter.StartCoroutine(AbilityCoroutine());
+            return _duration;
         }
+
+        return 0;
     }
 
     private IEnumerator AbilityCoroutine()

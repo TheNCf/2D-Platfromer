@@ -52,7 +52,7 @@ public class Player : MonoBehaviour
         if (_health.IsAlive == false) 
             return;
 
-        _visualizer.UpdateAnimatorParams(_groundDetector.IsGrounded, _mover.CurrentHorizontalVelocity, _wallGrabDetector.IsGrabbingWall);
+        _visualizer.UpdateAnimatorParams(_groundDetector.IsGrounded, _mover.CurrentHorizontalVelocity, _wallGrabDetector.IsGrabbingWall, _playerAbility.IsActive);
         _turner.Turn(_rigidbody);
 
         if (_wallGrabDetector.IsGrabbingWall && _inputReader.Movement.y > 0.1f && _mover.IsClimbing == false)
@@ -144,7 +144,10 @@ public class Player : MonoBehaviour
 
     private void OnAbility()
     {
-        _playerAbility.StartAbility(this);
+        if (_mover.IsDashing == false && _groundDetector.IsGrounded)
+        {
+            _mover.DisableControls(_playerAbility.StartAbility(this));
+        }
     }
 
     private void OnGrounded()
