@@ -356,7 +356,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _health: {fileID: 771999228}
-  <SmoothDuration>k__BackingField: 0
+  <SmoothDuration>k__BackingField: 0.3
 --- !u!114 &368653128
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -744,7 +744,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _health: {fileID: 771999228}
-  <SmoothDuration>k__BackingField: 0
+  <SmoothDuration>k__BackingField: 0.3
 --- !u!114 &557818155
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9500,7 +9500,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _health: {fileID: 771999228}
-  <SmoothDuration>k__BackingField: 0
+  <SmoothDuration>k__BackingField: 0.3
 --- !u!4 &1755263020 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 9203183002825874663, guid: d60d89d9cc775d748be03fedcc92ff28, type: 3}
@@ -10173,7 +10173,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _health: {fileID: 1965818729}
-  <SmoothDuration>k__BackingField: 0
+  <SmoothDuration>k__BackingField: 0.3
 --- !u!114 &2022737163
 MonoBehaviour:
   m_ObjectHideFlags: 0

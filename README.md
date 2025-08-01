@@ -10,3 +10,4 @@
 | Pick up / Use | <kbd>E</kbd>                |
 | Climb up      | <kbd>W</kbd>                |
 | Melee attack  | <kbd>LMB</kbd>              |
+| Ability       | <kbd>V</kbd>                |
