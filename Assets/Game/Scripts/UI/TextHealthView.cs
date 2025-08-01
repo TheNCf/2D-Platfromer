@@ -19,7 +19,7 @@ public class TextHealthView : HealthViewBase
 
     protected override void OnHealthChanged(int health)
     {
-        Smoother.SmoothNumberChange(this, _currentValue, (float)health / MaxHealth);
+        Smoother.SmoothNumberChange(this, _currentValue, (float)health / MaxHealth, SmoothDuration);
     }
 
     protected override void OnSmoothValueChanged(float intermediateValue)

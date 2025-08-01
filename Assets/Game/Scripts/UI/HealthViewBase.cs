@@ -6,7 +6,7 @@ using UnityEngine;
 public abstract class HealthViewBase : MonoBehaviour
 {
     [SerializeField] private BaseHealth _health;
-    [SerializeField, Min(0.0f)] private float _smoothDuration; 
+    [field: SerializeField, Min(0.0f)] protected float SmoothDuration { get; private set; } 
 
     protected ValueSmoother Smoother;
 
@@ -15,7 +15,7 @@ public abstract class HealthViewBase : MonoBehaviour
 
     protected virtual void Awake()
     {
-        Smoother = new ValueSmoother(_smoothDuration);
+        Smoother = new ValueSmoother(SmoothType.Quad);
     }
 
     protected virtual void OnEnable()

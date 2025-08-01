@@ -16,7 +16,7 @@ public class SliderHealthView : HealthViewBase
 
     protected override void OnHealthChanged(int health)
     {
-        Smoother.SmoothNumberChange(this, _slider.value, (float)health / MaxHealth);
+        Smoother.SmoothNumberChange(this, _slider.value, (float)health / MaxHealth, SmoothDuration);
     }
 
     protected override void OnSmoothValueChanged(float intermediateValue)

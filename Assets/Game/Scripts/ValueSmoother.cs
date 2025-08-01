@@ -5,21 +5,22 @@ using UnityEngine;
 
 public class ValueSmoother
 {
-    private float _duration;
+    private SmoothType _smoothType;
     private int _easingPower = 4;
 
     private IEnumerator _coroutine;
 
     public event Action<float> NumberChanged;
+    public event Action Ended;
 
-    public ValueSmoother(float duration)
+    public ValueSmoother(SmoothType smoothType)
     {
-        _duration = duration;
+        _smoothType = smoothType;
     }
 
-    public void SmoothNumberChange(MonoBehaviour coroutineStarter, float start, float target)
+    public void SmoothNumberChange(MonoBehaviour coroutineStarter, float start, float target, float duration)
     {
-        if (_duration == 0)
+        if (duration == 0)
         {
             NumberChanged?.Invoke(target);
             return;
@@ -28,11 +29,11 @@ public class ValueSmoother
         if (_coroutine != null)
             coroutineStarter.StopCoroutine(_coroutine);
 
-        _coroutine = SmoothNumberChangeCoroutine(start, target);
+        _coroutine = SmoothNumberChangeCoroutine(start, target, duration);
         coroutineStarter.StartCoroutine(_coroutine);
     }
 
-    private IEnumerator SmoothNumberChangeCoroutine(float start, float target)
+    private IEnumerator SmoothNumberChangeCoroutine(float start, float target, float duration)
     {
         float elapsedTime = 0;
         float startValue = start;
@@ -40,14 +41,24 @@ public class ValueSmoother
         do
         {
             elapsedTime += Time.deltaTime;
-            float normalizedPosition = elapsedTime / _duration;
+            float normalizedPosition = elapsedTime / duration;
             normalizedPosition = Mathf.Clamp01(normalizedPosition);
-            float easedNormalizedPosition = 1 - Mathf.Pow(1 - normalizedPosition, _easingPower);
+            float easedNormalizedPosition = normalizedPosition;
+
+            switch (_smoothType)
+            {
+                case SmoothType.Quad:
+                    easedNormalizedPosition = 1 - Mathf.Pow(1 - normalizedPosition, _easingPower);
+                    break;
+            }
+
             float intermedaiteValue = Mathf.Lerp(startValue, target, easedNormalizedPosition);
             NumberChanged?.Invoke(intermedaiteValue);
 
             yield return null;
         }
-        while (elapsedTime < _duration);
+        while (elapsedTime < duration);
+
+        Ended?.Invoke();
     }
 }

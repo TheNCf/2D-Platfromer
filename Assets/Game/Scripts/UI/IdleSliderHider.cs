@@ -22,7 +22,7 @@ public class IdleSliderHider : MonoBehaviour
     private void Awake()
     {
         _slider = GetComponent<Slider>();
-        _smoother = new ValueSmoother(_fadeDuration);
+        _smoother = new ValueSmoother(SmoothType.Quad);
         StartCoroutine(FadeOut(0.0f));
     }
 
@@ -40,7 +40,7 @@ public class IdleSliderHider : MonoBehaviour
 
     private void OnValueChanged(float value)
     {
-        _smoother.SmoothNumberChange(this, _currentOpacity, 1.0f);
+        _smoother.SmoothNumberChange(this, _currentOpacity, 1.0f, _fadeDuration);
 
         if (_fadeOutCoroutine != null)
             StopCoroutine(_fadeOutCoroutine);
@@ -65,6 +65,6 @@ public class IdleSliderHider : MonoBehaviour
     private IEnumerator FadeOut(float delay)
     {
         yield return new WaitForSeconds(delay);
-        _smoother.SmoothNumberChange(this, _currentOpacity, 0.0f);
+        _smoother.SmoothNumberChange(this, _currentOpacity, 0.0f, _fadeDuration);
     }
 }
