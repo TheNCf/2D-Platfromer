@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Player : MonoBehaviour
@@ -49,7 +47,7 @@ public class Player : MonoBehaviour
 
     private void Update()
     {
-        if (_health.IsAlive == false) 
+        if (_health.IsAlive == false)
             return;
 
         _visualizer.UpdateAnimatorParams(_groundDetector.IsGrounded, _mover.CurrentHorizontalVelocity, _wallGrabDetector.IsGrabbingWall, _playerAbility.IsActive);
@@ -146,7 +144,13 @@ public class Player : MonoBehaviour
     {
         if (_mover.IsDashing == false && _groundDetector.IsGrounded)
         {
-            _mover.DisableControls(_playerAbility.StartAbility());
+            float duration = _playerAbility.StartAbility();
+
+            if (duration > 0)
+            {
+                _visualizer.StartVampireVFX(duration);
+                _mover.DisableControls(duration);
+            }
         }
     }
 

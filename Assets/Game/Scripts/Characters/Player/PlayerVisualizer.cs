@@ -3,6 +3,7 @@ using UnityEngine;
 public class PlayerVisualizer : CharacterVisualizer
 {
     [SerializeField] private AnimationClip _wallClimbUpClip;
+    [SerializeField] private ParticleSystem _vampireVFX;
 
     private Animator _animator;
 
@@ -51,6 +52,16 @@ public class PlayerVisualizer : CharacterVisualizer
     public void OnItemPickUp()
     {
         _animator.SetTrigger(PlayerAnimatorData.Params.PickUpItem);
+    }
+
+    public void StartVampireVFX(float duration)
+    {
+        _vampireVFX.Stop();
+
+        ParticleSystem.MainModule mainModule = _vampireVFX.main;
+        mainModule.duration = duration - mainModule.startLifetime.constant;
+        
+        _vampireVFX.Play();
     }
 
     public void UpdateAnimatorParams(bool isGrounded, float horizontalVelocity, bool isGrabbingWall, bool isVampireAttack)
