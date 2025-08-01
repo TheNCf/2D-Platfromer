@@ -32,13 +32,18 @@ public class BaseHealth : MonoBehaviour, IDamageable
         CurrentHealth = MaxHealth;
     }
 
-    public virtual void TakeDamage(int damage)
+    public virtual int TakeDamage(int damage)
     {
         CurrentHealth -= damage;
         DamageTaken?.Invoke();
 
         if (IsAlive == false)
+        {
             BecameDead?.Invoke();
+            return damage + CurrentHealth;
+        }
+
+        return damage;
     }
 
     public virtual void Heal(int amount)

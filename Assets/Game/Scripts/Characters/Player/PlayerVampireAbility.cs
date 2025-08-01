@@ -30,7 +30,6 @@ public class PlayerVampireAbility : Ability
 
         if (duration > 0.0f)
         {
-            FindClosestEnemy();
             StartCoroutine(AbsorbCoroutine());
         }
 
@@ -58,15 +57,16 @@ public class PlayerVampireAbility : Ability
 
     private IEnumerator AbsorbCoroutine()
     {
+        WaitForSeconds wait = new WaitForSeconds(_absorptionCooldown);
+
         while (IsActive)
         {
-            if (_closestEnemy != null && _closestEnemy.IsAlive)
-            {
-                _closestEnemy.TakeDamage(_absorbtionAmount);
-                _playerHealth.Heal(_absorbtionAmount);
-            }
+            FindClosestEnemy();
 
-            yield return new WaitForSeconds(_absorptionCooldown);
+            if (_closestEnemy != null && _closestEnemy.IsAlive)
+                _playerHealth.Heal(_closestEnemy.TakeDamage(_absorbtionAmount));
+
+            yield return wait;
         }
     }
 }
