@@ -64,7 +64,7 @@ public class PlayerVampireAbility : Ability
             FindClosestEnemy();
 
             if (_closestEnemy != null && _closestEnemy.IsAlive)
-                _playerHealth.Heal(_closestEnemy.TakeDamage(_absorbtionAmount));
+                _playerHealth.TakeHeal(_closestEnemy.TakeDamage(_absorbtionAmount));
 
             yield return wait;
         }

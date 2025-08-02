@@ -6,12 +6,13 @@ using UnityEngine;
 public abstract class HealthViewBase : MonoBehaviour
 {
     [SerializeField] private BaseHealth _health;
-    [field: SerializeField, Min(0.0f)] protected float SmoothDuration { get; private set; } 
 
     protected ValueSmoother Smoother;
 
-    protected int MaxHealth => _health.MaxHealth;
-    protected float CurrentValue => (float)_health.CurrentHealth / _health.MaxHealth;
+    protected int MaxHealth => _health.MaxValue;
+    protected float CurrentValue => (float)_health.CurrentValue / _health.MaxValue;
+
+    [field: SerializeField, Min(0.0f)] protected float SmoothDuration { get; private set; } 
 
     protected virtual void Awake()
     {
@@ -20,13 +21,13 @@ public abstract class HealthViewBase : MonoBehaviour
 
     protected virtual void OnEnable()
     {
-        _health.HealthChanged += OnHealthChanged;
+        _health.ValueChanged += OnHealthChanged;
         Smoother.NumberChanged += OnSmoothValueChanged;
     }
 
     protected virtual void OnDisable()
     {
-        _health.HealthChanged -= OnHealthChanged;
+        _health.ValueChanged -= OnHealthChanged;
         Smoother.NumberChanged -= OnSmoothValueChanged;
     }
 

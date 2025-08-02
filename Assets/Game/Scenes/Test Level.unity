@@ -9249,7 +9249,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -220, y: -49.679993}
+  m_AnchoredPosition: {x: -220, y: -49.67993}
   m_SizeDelta: {x: 366.28003, y: 99.359985}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1695338087
@@ -9560,7 +9560,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _health: {fileID: 771999228}
-  <SmoothDuration>k__BackingField: 0
+  <SmoothDuration>k__BackingField: 0.3
 --- !u!114 &1834005846
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9940,7 +9940,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4746b96e715d8684b9ce2fc0758105a7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <MaxHealth>k__BackingField: 250
+  <MaxValue>k__BackingField: 250
   <StaggerTime>k__BackingField: 0.5
 --- !u!1 &1972275756
 GameObject:
@@ -10519,7 +10519,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _health: {fileID: 771999228}
-  <SmoothDuration>k__BackingField: 0
+  <SmoothDuration>k__BackingField: 0.3
 --- !u!114 &2070609660
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11082,6 +11082,10 @@ PrefabInstance:
       propertyPath: _vampireVFX
       value: 
       objectReference: {fileID: 1337461733}
+    - target: {fileID: 2238088886535294654, guid: d60d89d9cc775d748be03fedcc92ff28, type: 3}
+      propertyPath: <MaxValue>k__BackingField
+      value: 1000
+      objectReference: {fileID: 0}
     - target: {fileID: 2238088886535294654, guid: d60d89d9cc775d748be03fedcc92ff28, type: 3}
       propertyPath: <MaxHealth>k__BackingField
       value: 1000

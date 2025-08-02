@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 
 [RequireComponent(typeof(Slider))]
-public class IdleSliderHider : MonoBehaviour
+public class IdleSliderHider : MonoBehaviour, ICoroutineStarter
 {
     [SerializeField] private float _showDuration;
     [SerializeField] private float _fadeDuration;

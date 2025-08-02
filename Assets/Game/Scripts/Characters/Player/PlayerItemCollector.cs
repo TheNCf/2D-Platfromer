@@ -43,6 +43,6 @@ public class PlayerItemCollector : MonoBehaviour
 
     private void AddHealth(Medicine medicine)
     {
-        _playerHealth.Heal(medicine.Take());
+        _playerHealth.TakeHeal(medicine.Take());
     }
 }

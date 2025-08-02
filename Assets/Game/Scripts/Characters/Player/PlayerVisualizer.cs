@@ -1,5 +1,6 @@
 using UnityEngine;
 
+[RequireComponent(typeof(Animator))]
 public class PlayerVisualizer : CharacterVisualizer
 {
     [SerializeField] private AnimationClip _wallClimbUpClip;

@@ -3,7 +3,7 @@ using UnityEngine;
 using UnityEngine.UI;
 
 [RequireComponent(typeof(TextMeshProUGUI))]
-public class TextHealthView : HealthViewBase
+public class TextHealthView : HealthViewBase, ICoroutineStarter
 {
     private TextMeshProUGUI _healthText;
 

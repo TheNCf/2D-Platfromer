@@ -18,7 +18,7 @@ public class ValueSmoother
         _smoothType = smoothType;
     }
 
-    public void SmoothNumberChange(MonoBehaviour coroutineStarter, float start, float target, float duration)
+    public void SmoothNumberChange(ICoroutineStarter coroutineStarter, float start, float target, float duration)
     {
         if (duration == 0)
         {
