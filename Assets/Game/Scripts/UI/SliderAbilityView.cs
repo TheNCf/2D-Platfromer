@@ -2,7 +2,7 @@ using UnityEngine;
 using UnityEngine.UI;
 
 [RequireComponent(typeof(Slider))] 
-public class SliderAbilityView : AbilityViewBase, ICoroutineStarter
+public class SliderAbilityView : AbilityViewBase, ICoroutineRunner
 {
     private Slider _slider;
 

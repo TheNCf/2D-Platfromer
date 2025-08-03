@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 
 [RequireComponent(typeof(Slider))]
-public class SliderHealthView : HealthViewBase, ICoroutineStarter
+public class SliderHealthView : HealthViewBase, ICoroutineRunner
 {
     private Slider _slider;
 
